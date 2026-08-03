@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Local Radar — AI Local Business Intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- ============ TOP BAR ============ -->
+<header class="topbar">
+  <div class="brand">
+    <div class="brand-mark" aria-hidden="true">
+      <svg viewBox="0 0 32 32" width="22" height="22"><circle cx="16" cy="16" r="13" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".35"/><circle cx="16" cy="16" r="7" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".6"/><circle cx="16" cy="16" r="2.4" fill="currentColor"/><path d="M16 16 L29 9" stroke="currentColor" stroke-width="1.5"/></svg>
+    </div>
+    <div class="brand-text">
+      <strong>Local Radar</strong>
+      <span>Business Intelligence</span>
+    </div>
+  </div>
+
+  <div class="topbar-center">
+    <div class="omnisearch" role="search">
+      <svg class="i" viewBox="0 0 24 24" width="15" height="15"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M20 20l-3.6-3.6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      <input id="omni" type="text" placeholder="Search a business, neighborhood, or ask anything…" autocomplete="off" spellcheck="false" />
+      <kbd>/</kbd>
+      <div id="omniResults" class="omni-results" hidden></div>
+    </div>
+  </div>
+
+  <div class="topbar-right">
+    <select id="citySelect" class="city-select" aria-label="Select city">
+      <optgroup label="Top 10 by population">
+        <option value="new-york">1 · New York, NY</option>
+        <option value="los-angeles">2 · Los Angeles, CA</option>
+        <option value="chicago">3 · Chicago, IL</option>
+        <option value="houston">4 · Houston, TX</option>
+        <option value="phoenix">5 · Phoenix, AZ</option>
+        <option value="philadelphia">6 · Philadelphia, PA</option>
+        <option value="san-antonio">7 · San Antonio, TX</option>
+        <option value="san-diego">8 · San Diego, CA</option>
+        <option value="dallas">9 · Dallas, TX</option>
+        <option value="jacksonville">10 · Jacksonville, FL</option>
+      </optgroup>
+      <optgroup label="11–20 by population">
+        <option value="fort-worth">11 · Fort Worth, TX</option>
+        <option value="austin">12 · Austin, TX</option>
+        <option value="san-jose">13 · San Jose, CA</option>
+        <option value="columbus">14 · Columbus, OH</option>
+        <option value="charlotte">15 · Charlotte, NC</option>
+        <option value="indianapolis">16 · Indianapolis, IN</option>
+        <option value="san-francisco">17 · San Francisco, CA</option>
+        <option value="seattle">18 · Seattle, WA</option>
+        <option value="denver">19 · Denver, CO</option>
+        <option value="nashville">20 · Nashville, TN</option>
+      </optgroup>
+    </select>
+    <div class="clock"><span id="clock">--:--:--</span><em id="marketState">LIVE</em></div>
+    <button id="tourBtn" class="btn btn-ghost">
+      <svg viewBox="0 0 24 24" width="14" height="14"><path d="M8 5v14l11-7z" fill="currentColor"/></svg> Demo story
+    </button>
+    <button id="themeBtn" class="icon-btn round" aria-label="Toggle dark mode" title="Toggle dark mode">
+      <i data-ic="moon"></i>
+    </button>
+  </div>
+</header>
+
+<div class="shell">
+  <!-- ============ LEFT RAIL ============ -->
+  <nav class="rail" id="rail" aria-label="Primary">
+    <button class="rail-item active" data-view="pulse"><i data-ic="activity"></i><span>City Pulse</span></button>
+    <button class="rail-item" data-view="business"><i data-ic="building"></i><span>Business Desk</span></button>
+    <button class="rail-item" data-view="detective"><i data-ic="search"></i><span>AI Detective</span></button>
+    <button class="rail-item" data-view="heatmap"><i data-ic="map"></i><span>Opportunity Map</span></button>
+    <button class="rail-item" data-view="simulate"><i data-ic="zap"></i><span>Shockwave Sim</span></button>
+    <button class="rail-item" data-view="debate"><i data-ic="scale"></i><span>AI Debate</span></button>
+    <button class="rail-item" data-view="news"><i data-ic="news"></i><span>News Fusion</span></button>
+    <button class="rail-item" data-view="events"><i data-ic="calendar"></i><span>Event Intel</span></button>
+    <button class="rail-item" data-view="alerts"><i data-ic="bell"></i><span>AI Alerts</span><b class="badge" id="alertCount">4</b></button>
+    <button class="rail-item" data-view="ask"><i data-ic="sparkles"></i><span>Ask Anything</span></button>
+    <button class="rail-item" data-view="architecture"><i data-ic="layers"></i><span>Architecture</span></button>
+    <div class="rail-spacer"></div>
+    <button class="rail-status" id="engineBtn" title="Engine settings">
+      <span class="pip" id="enginePip"></span>
+      <div><strong id="engineName">Mock engine</strong><small id="engineSub">no key · deterministic</small></div>
+    </button>
+  </nav>
+
+  <!-- ============ MAIN ============ -->
+  <main class="main" id="main">
+
+    <!-- ---------- VIEW: CITY PULSE ---------- -->
+    <section class="view active" data-view="pulse">
+      <div class="ticker" id="ticker"><div class="ticker-track" id="tickerTrack"></div></div>
+
+      <div class="grid grid-hero">
+        <div class="card pulse-card">
+          <div class="card-head">
+            <h2>City Pulse</h2>
+            <span class="chip chip-live">Generated daily</span>
+          </div>
+          <div class="pulse-body">
+            <div class="pulse-gauge">
+              <canvas id="pulseGauge" width="320" height="320"></canvas>
+              <div class="pulse-num"><b id="pulseScore">87</b><small id="pulseCity">San Jose</small></div>
+            </div>
+            <ul class="pulse-stats" id="pulseStats"></ul>
+          </div>
+          <div class="card-foot">
+            <button class="btn btn-soft" id="pulseExplain">Explain today's pulse</button>
+            <div class="mode-pills" id="pulseModes"></div>
+          </div>
+          <div class="ai-out" id="pulseOut" hidden></div>
+        </div>
+
+        <div class="stack">
+          <div class="card">
+            <div class="card-head"><h3>Hidden Insights</h3><span class="chip">discovered</span></div>
+            <ul class="insight-list" id="insightList"></ul>
+            <button class="btn btn-soft w-full" id="insightBtn">Discover new insight</button>
+          </div>
+          <div class="card">
+            <div class="card-head"><h3>Movers</h3><span class="chip">24h</span></div>
+            <div class="movers" id="movers"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-3">
+        <div class="card"><div class="card-head"><h3>Rising</h3></div><div class="minilist" id="listRising"></div></div>
+        <div class="card"><div class="card-head"><h3>Hiring</h3></div><div class="minilist" id="listHiring"></div></div>
+        <div class="card"><div class="card-head"><h3>Struggling</h3></div><div class="minilist" id="listRisk"></div></div>
+      </div>
+    </section>
+
+    <!-- ---------- VIEW: BUSINESS DESK ---------- -->
+    <section class="view" data-view="business">
+      <div class="biz-layout">
+        <aside class="biz-list card">
+          <div class="card-head"><h3>Watchlist</h3><span class="chip" id="bizCount">0</span></div>
+          <input id="bizFilter" class="input" placeholder="Filter businesses…" />
+          <div class="biz-scroll" id="bizList"></div>
+        </aside>
+
+        <div class="biz-detail" id="bizDetail"></div>
+      </div>
+    </section>
+
+    <!-- ---------- VIEW: DETECTIVE ---------- -->
+    <section class="view" data-view="detective">
+      <div class="card detective-card">
+        <div class="card-head"><h2>AI Detective</h2><span class="chip">multi-agent reasoning</span></div>
+        <p class="muted">Ask a causal question about the city. Five specialised agents reason in sequence over permits, demographics, rent, reviews, closures, weather and events.</p>
+        <div class="ask-row">
+          <input id="detQ" class="input input-lg" value="Why is Downtown losing coffee shops?" />
+          <button class="btn btn-primary" id="detRun">Investigate</button>
+        </div>
+        <div class="chipset" id="detChips"></div>
+        <div class="pipeline" id="detPipeline"></div>
+        <div class="ai-out" id="detOut" hidden></div>
+      </div>
+    </section>
+
+    <!-- ---------- VIEW: HEATMAP ---------- -->
+    <section class="view" data-view="heatmap">
+      <div class="heat-layout">
+        <div class="card">
+          <div class="card-head">
+            <h2>Opportunity Heatmap</h2>
+            <select id="heatCategory" class="input input-sm">
+              <option>Coffee shop</option><option>Restaurant</option><option>Pharmacy</option>
+              <option>Gym</option><option>Grocery</option><option>Bakery</option>
+            </select>
+          </div>
+          <div class="heat-wrap">
+            <canvas id="heatCanvas" width="900" height="560"></canvas>
+            <div class="heat-tip" id="heatTip" hidden></div>
+          </div>
+          <div class="legend">
+            <span><i class="sw sw-good"></i>Great opportunity</span>
+            <span><i class="sw sw-mid"></i>Saturated</span>
+            <span><i class="sw sw-bad"></i>Avoid</span>
+            <span class="muted right">Click a district to analyse</span>
+          </div>
+        </div>
+        <aside class="card heat-side" id="heatSide"></aside>
+      </div>
+    </section>
+
+    <!-- ---------- VIEW: SHOCKWAVE ---------- -->
+    <section class="view" data-view="simulate">
+      <div class="card">
+        <div class="card-head"><h2>Shockwave Simulation</h2><span class="chip">chain reaction engine</span></div>
+        <div class="ask-row">
+          <select id="simEvent" class="input">
+            <option>Costco opens on North 1st Street</option>
+            <option>Starbucks on Santana Row closes</option>
+            <option>Highway 87 construction begins</option>
+            <option>A 400-unit apartment tower opens Downtown</option>
+          </select>
+          <button class="btn btn-primary" id="simRun">Simulate</button>
+        </div>
+        <div class="sim-stage">
+          <canvas id="simCanvas" width="760" height="420"></canvas>
+          <ol class="sim-chain" id="simChain"></ol>
+        </div>
+        <div class="ai-out" id="simOut" hidden></div>
+      </div>
+    </section>
+
+    <!-- ---------- VIEW: DEBATE ---------- -->
+    <section class="view" data-view="debate">
+      <div class="card">
+        <div class="card-head"><h2>AI Debate</h2><span class="chip">two agents, one verdict</span></div>
+        <div class="ask-row">
+          <input id="debQ" class="input input-lg" value="Should Rosetta Bakery open a second location in Willow Glen?" />
+          <button class="btn btn-primary" id="debRun">Run debate</button>
+        </div>
+        <div class="debate-grid">
+          <div class="debate-col yes"><header><b>Agent A</b><span>YES</span></header><div class="ai-out" id="debYes"></div></div>
+          <div class="debate-col no"><header><b>Agent B</b><span>NO</span></header><div class="ai-out" id="debNo"></div></div>
+        </div>
+        <div class="verdict" id="debVerdict" hidden></div>
+      </div>
+    </section>
+
+    <!-- ---------- VIEW: NEWS ---------- -->
+    <section class="view" data-view="news">
+      <div class="card-head view-head"><h2>AI News Fusion</h2><span class="chip">news → business impact</span></div>
+      <div class="news-grid" id="newsGrid"></div>
+    </section>
+
+    <!-- ---------- VIEW: EVENTS ---------- -->
+    <section class="view" data-view="events">
+      <div class="card-head view-head"><h2>Local Event Intelligence</h2><span class="chip">tonight &amp; this week</span></div>
+      <div class="events-grid" id="eventsGrid"></div>
+    </section>
+
+    <!-- ---------- VIEW: ALERTS ---------- -->
+    <section class="view" data-view="alerts">
+      <div class="card-head view-head"><h2>AI Alerts</h2><button class="btn btn-soft" id="alertGen">Generate new alert</button></div>
+      <div class="alerts" id="alertsList"></div>
+    </section>
+
+    <!-- ---------- VIEW: ASK ---------- -->
+    <section class="view" data-view="ask">
+      <div class="card ask-card">
+        <div class="card-head"><h2>Ask Anything</h2><div class="mode-pills" id="askModes"></div></div>
+        <div class="chat" id="chat"></div>
+        <div class="chipset" id="askChips"></div>
+        <div class="ask-row">
+          <input id="askQ" class="input input-lg" placeholder="Which grocery stores are getting worse?" />
+          <button class="btn btn-primary" id="askRun">Ask</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---------- VIEW: ARCHITECTURE ---------- -->
+    <section class="view" data-view="architecture">
+      <div class="card">
+        <div class="card-head"><h2>Reasoning Pipeline</h2><span class="chip">OpenAI-powered</span></div>
+        <div class="arch" id="arch"></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><h3>Wiring your own key</h3></div>
+        <div class="code-block"><pre id="snippet"></pre></div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- ============ ENGINE SETTINGS MODAL ============ -->
+<div class="modal-backdrop" id="keyModal" hidden>
+  <div class="modal card" role="dialog" aria-modal="true" aria-labelledby="keyTitle">
+    <div class="card-head"><h3 id="keyTitle">Engine settings</h3><button class="icon-btn" id="keyClose" aria-label="Close">×</button></div>
+    <p class="muted">Running on <strong>OpenRouter</strong> free models. The key is embedded in <code>js/openai.js</code> — paste a different one into the <code>EMBEDDED_KEY</code> constant at the top of that file. Every panel is live on load; if a call fails the app falls back to a deterministic mock engine so the demo never breaks.</p>
+    <label class="field"><span>Model</span>
+      <select id="modelInput" class="input">
+        <option value="openai/gpt-oss-120b:free">gpt-oss-120b (free · recommended)</option>
+        <option value="openai/gpt-oss-20b:free">gpt-oss-20b (free · fastest)</option>
+        <option value="meta-llama/llama-3.3-70b-instruct:free">Llama 3.3 70B (free)</option>
+        <option value="openrouter/free">Auto · any free model</option>
+      </select>
+    </label>
+    <label class="field"><span>Reasoning depth</span>
+      <select id="thinkInput" class="input">
+        <option value="fast">Fast · temp 0.3 · 350 tokens</option>
+        <option value="balanced" selected>Balanced · temp 0.7 · 700 tokens</option>
+        <option value="deep">Deep · temp 0.9 · 1400 tokens</option>
+      </select>
+    </label>
+    <div class="field-row">
+      <label class="switch"><input type="checkbox" id="streamToggle" checked /><span>Typewriter streaming</span></label>
+      <span class="muted small">Key embedded in source</span>
+    </div>
+    <div class="usage-box" id="usageBox">
+      <span><b id="uCalls">0</b><small>calls</small></span>
+      <span><b id="uTokens">0</b><small>tokens</small></span>
+      <span><b id="uCost">$0.0000</b><small>est. cost</small></span>
+      <span><b id="uIndex">off</b><small>vector index</small></span>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" id="keyClose2">Close</button>
+      <button class="btn btn-primary" id="keySave">Save &amp; test</button>
+    </div>
+    <div class="key-status" id="keyStatus" hidden></div>
+  </div>
+</div>
+
+<!-- ============ TOUR ============ -->
+<div class="tour" id="tour" hidden>
+  <div class="tour-inner">
+    <b id="tourStep">1 / 8</b>
+    <p id="tourText"></p>
+    <div class="tour-actions">
+      <button class="btn btn-ghost" id="tourExit">Exit</button>
+      <button class="btn btn-primary" id="tourNext">Next</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/icons.js"></script>
+<script src="js/cities.js"></script>
+<script src="js/cities-b.js"></script>
+<script src="js/cities-c.js"></script>
+<script src="js/data.js"></script>
+<script src="js/openai.js"></script>
+<script src="js/charts.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
