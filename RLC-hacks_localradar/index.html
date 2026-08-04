@@ -11,7 +11,6 @@
 </head>
 <body>
 
-<!-- ============ TOP BAR ============ -->
 <header class="topbar">
   <div class="brand">
     <div class="brand-mark" aria-hidden="true">
@@ -70,7 +69,6 @@
 </header>
 
 <div class="shell">
-  <!-- ============ LEFT RAIL ============ -->
   <nav class="rail" id="rail" aria-label="Primary">
     <button class="rail-item active" data-view="pulse"><i data-ic="activity"></i><span>City Pulse</span></button>
     <button class="rail-item" data-view="business"><i data-ic="building"></i><span>Business Desk</span></button>
@@ -90,10 +88,8 @@
     </button>
   </nav>
 
-  <!-- ============ MAIN ============ -->
   <main class="main" id="main">
 
-    <!-- ---------- VIEW: CITY PULSE ---------- -->
     <section class="view active" data-view="pulse">
       <div class="ticker" id="ticker"><div class="ticker-track" id="tickerTrack"></div></div>
 
@@ -137,7 +133,6 @@
       </div>
     </section>
 
-    <!-- ---------- VIEW: BUSINESS DESK ---------- -->
     <section class="view" data-view="business">
       <div class="biz-layout">
         <aside class="biz-list card">
@@ -150,7 +145,6 @@
       </div>
     </section>
 
-    <!-- ---------- VIEW: DETECTIVE ---------- -->
     <section class="view" data-view="detective">
       <div class="card detective-card">
         <div class="card-head"><h2>AI Detective</h2><span class="chip">multi-agent reasoning</span></div>
@@ -165,7 +159,6 @@
       </div>
     </section>
 
-    <!-- ---------- VIEW: HEATMAP ---------- -->
     <section class="view" data-view="heatmap">
       <div class="heat-layout">
         <div class="card">
@@ -191,7 +184,6 @@
       </div>
     </section>
 
-    <!-- ---------- VIEW: SHOCKWAVE ---------- -->
     <section class="view" data-view="simulate">
       <div class="card">
         <div class="card-head"><h2>Shockwave Simulation</h2><span class="chip">chain reaction engine</span></div>
@@ -212,7 +204,6 @@
       </div>
     </section>
 
-    <!-- ---------- VIEW: DEBATE ---------- -->
     <section class="view" data-view="debate">
       <div class="card">
         <div class="card-head"><h2>AI Debate</h2><span class="chip">two agents, one verdict</span></div>
@@ -228,25 +219,21 @@
       </div>
     </section>
 
-    <!-- ---------- VIEW: NEWS ---------- -->
     <section class="view" data-view="news">
       <div class="card-head view-head"><h2>AI News Fusion</h2><span class="chip">news → business impact</span></div>
       <div class="news-grid" id="newsGrid"></div>
     </section>
 
-    <!-- ---------- VIEW: EVENTS ---------- -->
     <section class="view" data-view="events">
       <div class="card-head view-head"><h2>Local Event Intelligence</h2><span class="chip">tonight &amp; this week</span></div>
       <div class="events-grid" id="eventsGrid"></div>
     </section>
 
-    <!-- ---------- VIEW: ALERTS ---------- -->
     <section class="view" data-view="alerts">
       <div class="card-head view-head"><h2>AI Alerts</h2><button class="btn btn-soft" id="alertGen">Generate new alert</button></div>
       <div class="alerts" id="alertsList"></div>
     </section>
 
-    <!-- ---------- VIEW: ASK ---------- -->
     <section class="view" data-view="ask">
       <div class="card ask-card">
         <div class="card-head"><h2>Ask Anything</h2><div class="mode-pills" id="askModes"></div></div>
@@ -259,7 +246,6 @@
       </div>
     </section>
 
-    <!-- ---------- VIEW: ARCHITECTURE ---------- -->
     <section class="view" data-view="architecture">
       <div class="card">
         <div class="card-head"><h2>Reasoning Pipeline</h2><span class="chip">OpenAI-powered</span></div>
@@ -274,7 +260,6 @@
   </main>
 </div>
 
-<!-- ============ ENGINE SETTINGS MODAL ============ -->
 <div class="modal-backdrop" id="keyModal" hidden>
   <div class="modal card" role="dialog" aria-modal="true" aria-labelledby="keyTitle">
     <div class="card-head"><h3 id="keyTitle">Engine settings</h3><button class="icon-btn" id="keyClose" aria-label="Close">×</button></div>
@@ -312,7 +297,6 @@
   </div>
 </div>
 
-<!-- ============ TOUR ============ -->
 <div class="tour" id="tour" hidden>
   <div class="tour-inner">
     <b id="tourStep">1 / 8</b>
