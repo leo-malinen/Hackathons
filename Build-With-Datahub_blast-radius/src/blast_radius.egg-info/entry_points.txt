@@ -1,0 +1,2 @@
+[console_scripts]
+blast-radius = blast_radius.cli:main

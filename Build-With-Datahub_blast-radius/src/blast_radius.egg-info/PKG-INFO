@@ -1,0 +1,297 @@
+Metadata-Version: 2.4
+Name: blast-radius
+Version: 0.1.0
+Summary: Pre-merge Data Change Firewall: DataHub-grounded blast radius analysis, remediation code generation, and knowledge writeback for every data PR.
+Author: Blast Radius
+License: Apache-2.0
+Project-URL: Homepage, https://github.com/your-org/blast-radius
+Keywords: datahub,lineage,dbt,airflow,mlops,data-contracts,agents
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+Requires-Dist: sqlglot>=25.0.0
+Requires-Dist: PyYAML>=6.0
+Provides-Extra: datahub
+Requires-Dist: acryl-datahub>=0.14.0; extra == "datahub"
+Provides-Extra: agent
+Requires-Dist: langgraph>=0.2.0; extra == "agent"
+Provides-Extra: contextkit
+Requires-Dist: datahub-agent-context[langchain]>=0.1.0; extra == "contextkit"
+Requires-Dist: langchain-openai>=0.2.0; extra == "contextkit"
+Provides-Extra: dev
+Requires-Dist: pytest>=8.0; extra == "dev"
+Requires-Dist: ruff>=0.6; extra == "dev"
+Provides-Extra: all
+Requires-Dist: acryl-datahub>=0.14.0; extra == "all"
+Requires-Dist: langgraph>=0.2.0; extra == "all"
+Requires-Dist: pytest>=8.0; extra == "all"
+Requires-Dist: ruff>=0.6; extra == "all"
+
+# Blast Radius
+
+**A pre-merge Data Change Firewall.** It reads every pull request that touches
+data code, walks the DataHub context graph to find what the change *actually*
+breaks — all the way down to production ML models — writes the migration, and
+puts everything it learned back into the catalog.
+
+> This breaks 3 dashboards, 1 Airflow DAG, and — critically — `fraud_risk_v3`,
+> a production ML model serving 40,000 req/day, via feature
+> `user_txn_velocity_7d`. Here is the migration PR.
+
+Most catalog agents answer questions. This one blocks a merge and writes the fix.
+
+---
+
+## Try it in thirty seconds
+
+No Docker, no DataHub, no API key:
+
+```bash
+pip install -e .
+blast-radius demo
+```
+
+That runs the whole five-agent pipeline against a bundled fixture graph and
+prints the verdict, the column-level path, the generated migration, and the
+writeback log. It is the same code path CI runs — only the context backend
+differs.
+
+---
+
+## What it does
+
+```
+GitHub PR (dbt / Airflow / feature repo)
+        │
+        ▼
+[1] Change Parser ──────► sqlglot AST diff: which columns changed, and how
+        │                 drop | rename | type_change | nullability |
+        │                 expression_change | add        (zero LLM calls)
+        ▼
+[2] Blast Radius ───────► DataHub: search → URN, get_lineage (DOWNSTREAM,
+        │                 column-level, N hops), get_lineage_paths_between
+        │                 (exact path incl. transform SQL), get_entities
+        │                 (owners, tier, certification, deprecation),
+        │                 get_dataset_queries (who actually queries this?)
+        ▼
+[3] ML Risk ────────────► filters for MLFeature / MLModel / MLModelDeployment,
+        │                 scores severity: prod model > certified dashboard >
+        │                 dev table. Hard-escalates to CRITICAL on live models.
+        ▼
+[4] Remediation ────────► migration SQL, dbt contract + version bump, backfill
+        │                 DAG, deprecation shim view, updated tests — grounded
+        │                 in real schemas from list_schema_fields
+        ▼
+[5] Knowledge Writeback ► save_document (Change Impact Record),
+        │                 add_structured_properties (blast_radius_score,
+        │                 last_impact_review), add_tags, update_description
+        │                 on the affected columns, propose_lifecycle_stage
+        ▼
+PR comment + status check + companion migration PR + DataHub doc link
+```
+
+**The non-negotiable design choice:** the graph traversal is deterministic code.
+The LLM never walks lineage — it would hallucinate a hop on stage. It does
+classification, the severity narrative, and code generation. That is why this
+works live.
+
+---
+
+## Why it scores on the rubric
+
+| Axis | What this does |
+|---|---|
+| **Use of DataHub** | Read tools (`search`, `get_lineage`, `get_lineage_paths_between`, `get_entities`, `get_dataset_queries`, `list_schema_fields`), **mutation tools** (`add_tags`, `update_description`, `add_structured_properties`), **governance** (`propose_lifecycle_stage`, `list_pending_proposals`), and **Context Documents** (`save_document`). Plus ML entities — `MLFeature`, `MLPrimaryKey`, `MLFeatureTable`, `MLModel`, `MLModelDeployment` — that almost nobody else will touch. |
+| **Technical Execution** | Runs as a real GitHub Action on a real PR. Sticky comment, mermaid diagram, failing status check, auto-opened companion migration PR. Degrades to a fixture graph rather than crashing. 60+ tests on the deterministic core. |
+| **Originality** | The agent blocks a merge and writes the fix, rather than answering a question. |
+
+The catalog is measurably smarter after each PR than it was before it — which
+is the whole *"the next person or agent inherits the knowledge"* thesis.
+
+---
+
+## Install
+
+```bash
+git clone <your-repo> blast-radius && cd blast-radius
+python3 -m venv .venv && source .venv/bin/activate
+pip install -e ".[dev]"
+blast-radius doctor          # shows exactly what is and is not wired up
+```
+
+Python 3.9+. The only hard dependencies are `sqlglot` and `PyYAML`; everything
+else (DataHub SDK, LangGraph, an LLM key) is optional and degrades gracefully.
+
+---
+
+## Commands
+
+| Command | What it does |
+|---|---|
+| `blast-radius demo` | Full pipeline against the bundled fixture graph. Needs nothing. |
+| `blast-radius analyze --base <sha>` | Diff the working tree against a base ref, analyze, comment, gate. This is what CI runs. |
+| `blast-radius analyze --simulate 'rename:stg_user_transactions.txn_amount_usd->amount'` | Analyze a hypothetical change without touching git. |
+| `blast-radius explain <asset.column> --kind drop` | "What breaks if I drop this?" — for the dev loop. |
+| `blast-radius audit` | **Reverse mode.** Walks *upstream* from every production model and flags unowned, untested, undocumented, or deprecated dependencies. |
+| `blast-radius mcp-check` | Boots the DataHub MCP server over stdio and lists the tools it exposes. |
+| `blast-radius doctor` | Config, connectivity, and dependency diagnostics. |
+
+---
+
+## Configuration
+
+Everything is env-var driven; `blast-radius.yml` holds the policy. Copy
+`.env.example` to `.env` and fill in what you have.
+
+```bash
+# DataHub
+DATAHUB_GMS_URL=http://localhost:8080
+DATAHUB_GMS_TOKEN=
+TOOLS_IS_MUTATION_ENABLED=true      # required for the writeback tools
+
+# LLM via OpenRouter
+OPENROUTER_API_KEY=sk-or-v1-...
+BLAST_RADIUS_MODEL=openai/gpt-4o-mini
+
+# GitHub (CI provides these automatically)
+GITHUB_TOKEN=
+GITHUB_REPOSITORY=owner/repo
+
+# Policy
+BLAST_RADIUS_FAIL_ON=CRITICAL
+BLAST_RADIUS_MAX_HOPS=6
+BLAST_RADIUS_WRITEBACK=true
+```
+
+### Context backends
+
+Three, tried in order (`BLAST_RADIUS_CONTEXT_SOURCE=auto|sdk|mcp|fixture`):
+
+1. **SDK** — `datahub-agent-context` against GMS directly. Best for CI: no
+   subprocess to babysit inside a GitHub Action.
+2. **MCP** — spawns `@acryldata/mcp-server-datahub` over stdio and calls its
+   tools. Best for the interactive dev loop, and it proves the MCP integration.
+3. **Fixture** — the bundled 18-entity graph. Keeps the demo alive when the
+   network is not.
+
+All three implement one interface, so the pipeline never knows which is
+running.
+
+---
+
+## The DataHub side
+
+```bash
+# 1. Local DataHub Core
+python3 -m pip install --upgrade acryl-datahub
+datahub docker quickstart
+
+# 2. Sample metadata
+git clone https://github.com/datahub-project/static-assets
+datahub ingest -c <recipe>.yml
+
+# 3. The ML slice — this is the part that makes the demo
+python scripts/bootstrap_structured_properties.py
+python scripts/seed_datahub_ml_slice.py
+```
+
+Step 3 hand-authors what sample data never has: `MLFeature`, `MLPrimaryKey`,
+`MLFeatureTable`, `MLModel`, and `MLModelDeployment` entities, wired
+warehouse table → feature → model → deployment with **column-level**
+fine-grained lineage and the transform SQL attached.
+
+Without it you have a generic impact-analysis tool. With it you have the
+end-to-end ML path that only a context platform can give you:
+
+```
+stg_user_transactions.txn_amount_usd
+  --[SUM(...) OVER (PARTITION BY user_id ... 7 days)]-->  int_user_txns.velocity_calc
+  --[CAST(velocity_calc AS DOUBLE)]-->                    fct_user_txn_features.user_txn_velocity_7d
+  -->                                                     mlFeature user_txn_velocity_7d
+  -->                                                     mlModel fraud_risk_v3
+  -->                                                     mlModelDeployment fraud-risk-v3-prod (40,000 req/day)
+```
+
+---
+
+## The custom skill
+
+`skills/blast-radius/SKILL.md` ships in this repo in the DataHub Skills format.
+It encodes the actual operating knowledge: how to classify a schema change,
+how to resolve a file path to a URN without guessing, which hops to walk, the
+severity rubric with its hard escalations, and what to write back.
+
+```bash
+npx skills add datahub-project/datahub-skills   # the official set
+# then point your agent at skills/blast-radius/SKILL.md
+```
+
+---
+
+## In CI
+
+`.github/workflows/blast-radius.yml` runs on every PR and produces:
+
+- a **sticky comment** with a severity badge, the ML-at-risk section, a ranked
+  impact table, and a mermaid lineage diagram
+- a **failing status check** when severity hits the threshold — this is the
+  firewall; it must be able to actually block a merge
+- a **companion PR** containing the generated migration
+- a **Change Impact Record** in DataHub, linked from the comment
+
+Override with the `blast-radius:override` label when you know better.
+
+`.github/workflows/blast-radius-audit.yml` runs reverse mode nightly.
+
+---
+
+## Repository layout
+
+```
+src/blast_radius/
+  cli.py            commands: analyze, demo, explain, audit, mcp-check, doctor
+  graph.py          LangGraph state machine + sequential fallback
+  state.py          the typed state every node reads and writes
+  config.py         env + yaml settings
+  git_diff.py       merge-base diff, renames, binary skip
+  dbt_jinja.py      makes {{ ref() }} parseable by sqlglot
+  lineage.py        deterministic BFS with column tracking
+  severity.py       the scoring rubric
+  llm.py            OpenRouter client (gpt-4o-mini), optional
+  mcp_client.py     JSON-RPC stdio client for the MCP server
+  github_api.py     sticky comments, checks, branches, PRs
+  templates.py      the generated-artifact templates
+  context/          sdk.py | mcp.py | fixture.py behind one interface
+  nodes/            the five agents
+  render/           comment.py | mermaid.py | document.py | terminal.py
+  fixtures/         the offline demo graph
+scripts/            seed the ML slice, register properties, open the demo PR
+demo/               dbt models + Airflow DAG to open a dangerous PR against
+skills/             the custom DataHub skill
+stretch/            Slack agent
+tests/              the deterministic core, pinned
+```
+
+---
+
+## Design notes
+
+**URN resolution is the #1 failure mode.** A file path is not a URN. The
+resolver tries an override map, then a cache, then convention, then a
+platform-filtered search with candidate scoring — and reports `unresolved`
+rather than guessing.
+
+**Column-level, not table-level.** Table-level impact analysis says "3
+downstream tables." Column-level with the transform shown says "it propagates
+through `int_user_txns.velocity_calc` via a 7-day windowed SUM." Only the
+second one changes anyone's mind.
+
+**Real usage beats edge count.** `get_dataset_queries` gives you "847 queries
+from 23 users in the last 30 days." That is a far more credible severity signal
+than how many arrows point at a node.
+
+**Proposals over blind writes.** Anything destructive goes through
+`propose_lifecycle_stage` so an owner approves it.
+
+**Nothing fails closed on infrastructure.** If GMS is down, the run degrades to
+the fixture graph and says so. If the LLM key is missing, templates cover every
+artifact. A missing API key must never block a merge.

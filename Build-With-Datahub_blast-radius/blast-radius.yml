@@ -1,0 +1,70 @@
+# ---------------------------------------------------------------------------
+# Blast Radius repo policy. Checked into the data repo, read at analyze time.
+# Everything here can also be set via env vars (env wins over this file).
+# ---------------------------------------------------------------------------
+
+# Which severity blocks the merge (fails the status check).
+fail_on: CRITICAL
+
+# Lineage traversal depth. Deterministic BFS, never LLM.
+max_hops: 6
+
+# Write knowledge back into DataHub after every analysis.
+writeback: true
+
+# Prefer governance proposals over direct mutations for anything destructive.
+prefer_proposals: true
+
+# --- How file paths map to DataHub URNs ------------------------------------
+# The #1 failure mode of impact-analysis tools is bad URN resolution.
+# We resolve in this order:  urn_overrides -> search(name, platform) -> naming convention.
+dbt:
+  project_dir: demo/dbt
+  # Naming convention fallback: urn:li:dataset:(urn:li:dataPlatform:dbt,<database>.<schema>.<model>,<env>)
+  database: analytics
+  env: PROD
+  # Folder -> schema mapping, mirrors dbt's custom schema config
+  schema_by_folder:
+    staging: staging
+    intermediate: intermediate
+    marts: marts
+
+airflow:
+  dags_dir: demo/airflow/dags
+  flow_namespace: prod
+
+# Explicit escape hatch. Wins over everything else.
+urn_overrides:
+  # "demo/dbt/models/staging/stg_user_transactions.sql": "urn:li:dataset:(urn:li:dataPlatform:dbt,analytics.staging.stg_user_transactions,PROD)"
+
+# --- Severity policy -------------------------------------------------------
+severity:
+  # Any breaking change reaching a live model deployment is always CRITICAL.
+  escalate_on_serving_ml_deployment: true
+  # Any breaking change reaching a Tier1 / certified asset is at least HIGH.
+  escalate_on_tier1: true
+  # Assets marked deprecated in DataHub barely count.
+  deprecated_multiplier: 0.25
+  bands:
+    critical: 70
+    high: 45
+    medium: 20
+
+# --- Remediation -----------------------------------------------------------
+remediation:
+  emit_migration_sql: true
+  emit_dbt_contract: true
+  emit_backfill_dag: true
+  emit_shim_view: true
+  emit_tests: true
+  # Open a companion PR containing the generated artifacts.
+  open_companion_pr: true
+  companion_branch_prefix: blast-radius/migration
+
+# --- Writeback -------------------------------------------------------------
+knowledge:
+  document_prefix: "Change Impact Record"
+  structured_properties:
+    score: blast_radius_score
+    reviewed: last_impact_review
+  tag_namespace: blast-radius

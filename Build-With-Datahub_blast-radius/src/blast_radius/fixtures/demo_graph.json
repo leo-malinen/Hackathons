@@ -1,0 +1,385 @@
+{
+  "_comment": "Mirrors exactly what scripts/seed_datahub_ml_slice.py emits into a real DataHub. Same URNs, same column-level edges, same ML slice - so the demo is identical whether or not Docker is running.",
+  "entities": [
+    {
+      "urn": "urn:li:dataset:(urn:li:dataPlatform:postgres,billing.public.user_transactions,PROD)",
+      "type": "dataset",
+      "name": "billing.public.user_transactions",
+      "platform": "postgres",
+      "description": "Raw transaction ledger replicated from the billing service.",
+      "tier": "Tier1",
+      "domain": "Payments",
+      "owners": ["billing-eng"],
+      "tags": ["pii", "source-of-truth"],
+      "query_count_30d": 212,
+      "monthly_cost_usd": 0,
+      "schema_fields": [
+        {"name": "user_id", "type": "STRING", "native_type": "varchar(36)", "nullable": false, "is_primary_key": true, "description": "Stable user identifier."},
+        {"name": "txn_id", "type": "STRING", "native_type": "varchar(36)", "nullable": false, "description": "Transaction identifier."},
+        {"name": "amount_usd", "type": "NUMBER", "native_type": "numeric(18,2)", "nullable": false, "description": "Transaction amount in USD."},
+        {"name": "created_at", "type": "TIME", "native_type": "timestamp", "nullable": false, "description": "Ledger write time."}
+      ]
+    },
+    {
+      "urn": "urn:li:dataset:(urn:li:dataPlatform:dbt,analytics.staging.stg_user_transactions,PROD)",
+      "type": "dataset",
+      "name": "analytics.staging.stg_user_transactions",
+      "platform": "dbt",
+      "description": "Cleaned, typed transaction rows. The contract every downstream model depends on.",
+      "tier": "Tier1",
+      "domain": "Payments",
+      "owners": ["data-platform"],
+      "tags": ["tier1", "certified"],
+      "certified": true,
+      "query_count_30d": 847,
+      "monthly_cost_usd": 340,
+      "schema_fields": [
+        {"name": "user_id", "type": "STRING", "native_type": "varchar(36)", "nullable": false, "is_primary_key": true, "description": "Stable user identifier."},
+        {"name": "txn_id", "type": "STRING", "native_type": "varchar(36)", "nullable": false, "description": "Transaction identifier."},
+        {"name": "txn_ts", "type": "TIME", "native_type": "timestamp", "nullable": false, "description": "Transaction timestamp, UTC."},
+        {"name": "txn_amount_usd", "type": "NUMBER", "native_type": "numeric(18,2)", "nullable": false, "description": "Transaction amount in USD. Feeds fraud features - do not rename without a migration."},
+        {"name": "merchant_id", "type": "STRING", "native_type": "varchar(36)", "nullable": true, "description": "Merchant the transaction was made with."},
+        {"name": "is_disputed", "type": "BOOLEAN", "native_type": "boolean", "nullable": false, "description": "Whether the transaction was disputed."}
+      ]
+    },
+    {
+      "urn": "urn:li:dataset:(urn:li:dataPlatform:dbt,analytics.intermediate.int_user_txns,PROD)",
+      "type": "dataset",
+      "name": "analytics.intermediate.int_user_txns",
+      "platform": "dbt",
+      "description": "Per-user rolling transaction aggregates.",
+      "tier": "Tier2",
+      "domain": "Payments",
+      "owners": ["data-platform"],
+      "tags": ["tier2"],
+      "query_count_30d": 154,
+      "monthly_cost_usd": 280,
+      "schema_fields": [
+        {"name": "user_id", "type": "STRING", "native_type": "varchar(36)", "nullable": false, "is_primary_key": true},
+        {"name": "velocity_calc", "type": "NUMBER", "native_type": "numeric(18,2)", "nullable": true, "description": "7 day rolling sum of transaction amount."},
+        {"name": "txn_count_7d", "type": "NUMBER", "native_type": "bigint", "nullable": true}
+      ]
+    },
+    {
+      "urn": "urn:li:dataset:(urn:li:dataPlatform:dbt,analytics.marts.fct_user_txn_features,PROD)",
+      "type": "dataset",
+      "name": "analytics.marts.fct_user_txn_features",
+      "platform": "dbt",
+      "description": "Serving table behind the user_risk_features feature table.",
+      "tier": "Tier1",
+      "domain": "Risk",
+      "owners": ["ml-platform"],
+      "tags": ["tier1", "feature-source"],
+      "query_count_30d": 402,
+      "monthly_cost_usd": 1900,
+      "schema_fields": [
+        {"name": "user_id", "type": "STRING", "native_type": "varchar(36)", "nullable": false, "is_primary_key": true},
+        {"name": "user_txn_velocity_7d", "type": "NUMBER", "native_type": "double", "nullable": true, "description": "7 day transaction velocity. Input to fraud_risk_v3."},
+        {"name": "user_txn_amount_avg_30d", "type": "NUMBER", "native_type": "double", "nullable": true},
+        {"name": "feature_ts", "type": "TIME", "native_type": "timestamp", "nullable": false}
+      ]
+    },
+    {
+      "urn": "urn:li:dataset:(urn:li:dataPlatform:dbt,analytics.marts.fct_revenue_daily,PROD)",
+      "type": "dataset",
+      "name": "analytics.marts.fct_revenue_daily",
+      "platform": "dbt",
+      "description": "Daily gross revenue, the number the executive dashboard reports.",
+      "tier": "Tier1",
+      "domain": "Finance",
+      "owners": ["analytics-eng"],
+      "tags": ["tier1", "certified", "finance"],
+      "certified": true,
+      "query_count_30d": 623,
+      "monthly_cost_usd": 1400,
+      "schema_fields": [
+        {"name": "revenue_date", "type": "DATE", "native_type": "date", "nullable": false, "is_primary_key": true},
+        {"name": "gross_revenue_usd", "type": "NUMBER", "native_type": "numeric(18,2)", "nullable": false, "description": "Sum of transaction amounts for the day."},
+        {"name": "txn_count", "type": "NUMBER", "native_type": "bigint", "nullable": false}
+      ]
+    },
+    {
+      "urn": "urn:li:dataset:(urn:li:dataPlatform:snowflake,SANDBOX.SCRATCH.TXN_PLAYGROUND,DEV)",
+      "type": "dataset",
+      "name": "SANDBOX.SCRATCH.TXN_PLAYGROUND",
+      "platform": "snowflake",
+      "description": "Abandoned analyst scratch table. Kept only to prove the scorer down-ranks it.",
+      "owners": [],
+      "tags": ["scratch"],
+      "deprecated": true,
+      "query_count_30d": 3,
+      "monthly_cost_usd": 12,
+      "schema_fields": [{"name": "txn_amount_usd", "type": "NUMBER", "native_type": "number", "nullable": true}]
+    },
+    {
+      "urn": "urn:li:mlFeatureTable:(urn:li:dataPlatform:feast,user_risk_features)",
+      "type": "mlFeatureTable",
+      "name": "user_risk_features",
+      "platform": "feast",
+      "description": "Online feature table backing real-time fraud scoring.",
+      "owners": ["ml-platform"],
+      "tags": ["production"]
+    },
+    {
+      "urn": "urn:li:mlFeature:(user_risk_features,user_txn_velocity_7d)",
+      "type": "mlFeature",
+      "name": "user_txn_velocity_7d",
+      "platform": "feast",
+      "description": "Rolling 7 day transaction velocity. Highest-weighted input to fraud_risk_v3.",
+      "owners": ["ml-platform"],
+      "tags": ["production", "high-importance"]
+    },
+    {
+      "urn": "urn:li:mlFeature:(user_risk_features,user_txn_amount_avg_30d)",
+      "type": "mlFeature",
+      "name": "user_txn_amount_avg_30d",
+      "platform": "feast",
+      "description": "30 day average transaction amount.",
+      "owners": ["ml-platform"]
+    },
+    {
+      "urn": "urn:li:mlPrimaryKey:(user_risk_features,user_id)",
+      "type": "mlPrimaryKey",
+      "name": "user_id",
+      "platform": "feast",
+      "description": "Entity key for the user_risk_features table.",
+      "owners": ["ml-platform"]
+    },
+    {
+      "urn": "urn:li:mlModel:(urn:li:dataPlatform:mlflow,fraud_risk_v3,PROD)",
+      "type": "mlModel",
+      "name": "fraud_risk_v3",
+      "platform": "mlflow",
+      "description": "Gradient boosted fraud risk scorer. Blocks transactions above 0.86.",
+      "tier": "Tier1",
+      "domain": "Risk",
+      "owners": ["fraud-ml"],
+      "tags": ["production", "tier1"],
+      "external_url": "https://mlflow.internal/models/fraud_risk_v3",
+      "properties": {"training_job": "fraud_risk_v3_20260714", "auc": "0.947"}
+    },
+    {
+      "urn": "urn:li:mlModelDeployment:(urn:li:dataPlatform:sagemaker,fraud-risk-v3-prod,PROD)",
+      "type": "mlModelDeployment",
+      "name": "fraud-risk-v3-prod",
+      "platform": "sagemaker",
+      "description": "Live SageMaker endpoint scoring checkout traffic.",
+      "tier": "Tier1",
+      "domain": "Risk",
+      "owners": ["fraud-ml"],
+      "tags": ["production", "customer-facing"],
+      "properties": {"requests_per_day": 40000, "status": "IN_SERVICE", "region": "us-east-1"}
+    },
+    {
+      "urn": "urn:li:dashboard:(looker,exec_revenue_health)",
+      "type": "dashboard",
+      "name": "Executive Revenue Health",
+      "platform": "looker",
+      "description": "Board-level revenue dashboard reviewed every Monday.",
+      "tier": "Tier1",
+      "domain": "Finance",
+      "owners": ["finance-analytics"],
+      "tags": ["tier1", "certified", "executive"],
+      "certified": true,
+      "external_url": "https://looker.internal/dashboards/exec_revenue_health"
+    },
+    {
+      "urn": "urn:li:dashboard:(looker,fraud_ops_daily)",
+      "type": "dashboard",
+      "name": "Fraud Ops Daily",
+      "platform": "looker",
+      "description": "Operational dashboard the fraud analysts work from every morning.",
+      "tier": "Tier2",
+      "domain": "Risk",
+      "owners": ["fraud-ops"],
+      "tags": ["tier2"],
+      "external_url": "https://looker.internal/dashboards/fraud_ops_daily"
+    },
+    {
+      "urn": "urn:li:dashboard:(mode,merchant_disputes_weekly)",
+      "type": "dashboard",
+      "name": "Merchant Disputes Weekly",
+      "platform": "mode",
+      "description": "Weekly dispute review. No owner set in the catalog.",
+      "domain": "Payments",
+      "owners": [],
+      "tags": []
+    },
+    {
+      "urn": "urn:li:chart:(looker,txn_volume_trend)",
+      "type": "chart",
+      "name": "Transaction Volume Trend",
+      "platform": "looker",
+      "owners": ["finance-analytics"]
+    },
+    {
+      "urn": "urn:li:dataFlow:(airflow,user_feature_backfill,prod)",
+      "type": "dataFlow",
+      "name": "user_feature_backfill",
+      "platform": "airflow",
+      "description": "Nightly feature materialisation DAG.",
+      "owners": ["ml-platform"]
+    },
+    {
+      "urn": "urn:li:dataJob:(urn:li:dataFlow:(airflow,user_feature_backfill,prod),compute_velocity_features)",
+      "type": "dataJob",
+      "name": "compute_velocity_features",
+      "platform": "airflow",
+      "description": "Computes rolling velocity features and writes fct_user_txn_features.",
+      "owners": ["ml-platform"],
+      "tags": ["production"],
+      "monthly_cost_usd": 620
+    }
+  ],
+  "edges": [
+    {
+      "upstream": "urn:li:dataset:(urn:li:dataPlatform:postgres,billing.public.user_transactions,PROD)",
+      "downstream": "urn:li:dataset:(urn:li:dataPlatform:dbt,analytics.staging.stg_user_transactions,PROD)",
+      "upstream_column": "amount_usd",
+      "downstream_column": "txn_amount_usd",
+      "transform": "CAST(amount_usd AS NUMERIC(18,2)) AS txn_amount_usd",
+      "via": "fineGrained"
+    },
+    {
+      "upstream": "urn:li:dataset:(urn:li:dataPlatform:dbt,analytics.staging.stg_user_transactions,PROD)",
+      "downstream": "urn:li:dataset:(urn:li:dataPlatform:dbt,analytics.intermediate.int_user_txns,PROD)",
+      "upstream_column": "txn_amount_usd",
+      "downstream_column": "velocity_calc",
+      "transform": "SUM(txn_amount_usd) OVER (PARTITION BY user_id ORDER BY txn_ts RANGE BETWEEN INTERVAL '7 days' PRECEDING AND CURRENT ROW)",
+      "via": "fineGrained"
+    },
+    {
+      "upstream": "urn:li:dataset:(urn:li:dataPlatform:dbt,analytics.intermediate.int_user_txns,PROD)",
+      "downstream": "urn:li:dataset:(urn:li:dataPlatform:dbt,analytics.marts.fct_user_txn_features,PROD)",
+      "upstream_column": "velocity_calc",
+      "downstream_column": "user_txn_velocity_7d",
+      "transform": "CAST(velocity_calc AS DOUBLE) AS user_txn_velocity_7d",
+      "via": "fineGrained"
+    },
+    {
+      "upstream": "urn:li:dataset:(urn:li:dataPlatform:dbt,analytics.marts.fct_user_txn_features,PROD)",
+      "downstream": "urn:li:mlFeature:(user_risk_features,user_txn_velocity_7d)",
+      "upstream_column": "user_txn_velocity_7d",
+      "downstream_column": "user_txn_velocity_7d",
+      "via": "mlFeatureSource"
+    },
+    {
+      "upstream": "urn:li:mlFeature:(user_risk_features,user_txn_velocity_7d)",
+      "downstream": "urn:li:mlModel:(urn:li:dataPlatform:mlflow,fraud_risk_v3,PROD)",
+      "via": "mlModelFeature"
+    },
+    {
+      "upstream": "urn:li:mlFeature:(user_risk_features,user_txn_velocity_7d)",
+      "downstream": "urn:li:mlFeatureTable:(urn:li:dataPlatform:feast,user_risk_features)",
+      "via": "mlFeatureSource"
+    },
+    {
+      "upstream": "urn:li:mlFeatureTable:(urn:li:dataPlatform:feast,user_risk_features)",
+      "downstream": "urn:li:mlModel:(urn:li:dataPlatform:mlflow,fraud_risk_v3,PROD)",
+      "via": "mlModelFeature"
+    },
+    {
+      "upstream": "urn:li:mlModel:(urn:li:dataPlatform:mlflow,fraud_risk_v3,PROD)",
+      "downstream": "urn:li:mlModelDeployment:(urn:li:dataPlatform:sagemaker,fraud-risk-v3-prod,PROD)",
+      "via": "mlDeployment"
+    },
+    {
+      "upstream": "urn:li:dataset:(urn:li:dataPlatform:dbt,analytics.marts.fct_user_txn_features,PROD)",
+      "downstream": "urn:li:mlPrimaryKey:(user_risk_features,user_id)",
+      "upstream_column": "user_id",
+      "downstream_column": "user_id",
+      "via": "mlFeatureSource"
+    },
+    {
+      "upstream": "urn:li:dataset:(urn:li:dataPlatform:dbt,analytics.marts.fct_user_txn_features,PROD)",
+      "downstream": "urn:li:dashboard:(looker,fraud_ops_daily)",
+      "via": "consumes"
+    },
+    {
+      "upstream": "urn:li:dataset:(urn:li:dataPlatform:dbt,analytics.staging.stg_user_transactions,PROD)",
+      "downstream": "urn:li:dataJob:(urn:li:dataFlow:(airflow,user_feature_backfill,prod),compute_velocity_features)",
+      "upstream_column": "txn_amount_usd",
+      "via": "consumes"
+    },
+    {
+      "upstream": "urn:li:dataJob:(urn:li:dataFlow:(airflow,user_feature_backfill,prod),compute_velocity_features)",
+      "downstream": "urn:li:dataset:(urn:li:dataPlatform:dbt,analytics.marts.fct_user_txn_features,PROD)",
+      "via": "lineage"
+    },
+    {
+      "upstream": "urn:li:dataset:(urn:li:dataPlatform:dbt,analytics.staging.stg_user_transactions,PROD)",
+      "downstream": "urn:li:dataset:(urn:li:dataPlatform:dbt,analytics.marts.fct_revenue_daily,PROD)",
+      "upstream_column": "txn_amount_usd",
+      "downstream_column": "gross_revenue_usd",
+      "transform": "SUM(txn_amount_usd) AS gross_revenue_usd",
+      "via": "fineGrained"
+    },
+    {
+      "upstream": "urn:li:dataset:(urn:li:dataPlatform:dbt,analytics.marts.fct_revenue_daily,PROD)",
+      "downstream": "urn:li:chart:(looker,txn_volume_trend)",
+      "via": "consumes"
+    },
+    {
+      "upstream": "urn:li:chart:(looker,txn_volume_trend)",
+      "downstream": "urn:li:dashboard:(looker,exec_revenue_health)",
+      "via": "consumes"
+    },
+    {
+      "upstream": "urn:li:dataset:(urn:li:dataPlatform:dbt,analytics.marts.fct_revenue_daily,PROD)",
+      "downstream": "urn:li:dashboard:(mode,merchant_disputes_weekly)",
+      "via": "consumes"
+    },
+    {
+      "upstream": "urn:li:dataset:(urn:li:dataPlatform:dbt,analytics.staging.stg_user_transactions,PROD)",
+      "downstream": "urn:li:dataset:(urn:li:dataPlatform:snowflake,SANDBOX.SCRATCH.TXN_PLAYGROUND,DEV)",
+      "upstream_column": "txn_amount_usd",
+      "downstream_column": "txn_amount_usd",
+      "via": "fineGrained"
+    }
+  ],
+  "queries": {
+    "urn:li:dataset:(urn:li:dataPlatform:dbt,analytics.staging.stg_user_transactions,PROD)": {
+      "total_queries": 1204,
+      "distinct_users": 31,
+      "window_days": 30,
+      "top_queries": [
+        "SELECT user_id, sum(txn_amount_usd) FROM analytics.staging.stg_user_transactions GROUP BY 1",
+        "SELECT * FROM analytics.staging.stg_user_transactions WHERE txn_ts >= current_date - 7"
+      ],
+      "columns": {
+        "txn_amount_usd": {
+          "total_queries": 847,
+          "distinct_users": 23,
+          "top_queries": [
+            "SELECT sum(txn_amount_usd) AS gross FROM analytics.staging.stg_user_transactions WHERE txn_ts >= current_date - 30",
+            "SELECT user_id, avg(txn_amount_usd) FROM analytics.staging.stg_user_transactions GROUP BY 1"
+          ]
+        },
+        "merchant_id": {"total_queries": 118, "distinct_users": 9},
+        "is_disputed": {"total_queries": 64, "distinct_users": 6}
+      }
+    },
+    "urn:li:dataset:(urn:li:dataPlatform:dbt,analytics.marts.fct_revenue_daily,PROD)": {
+      "total_queries": 623,
+      "distinct_users": 18,
+      "window_days": 30,
+      "columns": {"gross_revenue_usd": {"total_queries": 511, "distinct_users": 16}}
+    },
+    "urn:li:dataset:(urn:li:dataPlatform:dbt,analytics.marts.fct_user_txn_features,PROD)": {
+      "total_queries": 402,
+      "distinct_users": 7,
+      "window_days": 30,
+      "columns": {"user_txn_velocity_7d": {"total_queries": 356, "distinct_users": 6}}
+    },
+    "urn:li:dataset:(urn:li:dataPlatform:dbt,analytics.intermediate.int_user_txns,PROD)": {
+      "total_queries": 154,
+      "distinct_users": 5,
+      "window_days": 30
+    },
+    "urn:li:dataset:(urn:li:dataPlatform:snowflake,SANDBOX.SCRATCH.TXN_PLAYGROUND,DEV)": {
+      "total_queries": 3,
+      "distinct_users": 1,
+      "window_days": 30
+    }
+  }
+}

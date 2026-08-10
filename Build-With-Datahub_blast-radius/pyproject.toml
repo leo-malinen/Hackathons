@@ -1,0 +1,72 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "blast-radius"
+version = "0.1.0"
+description = "Pre-merge Data Change Firewall: DataHub-grounded blast radius analysis, remediation code generation, and knowledge writeback for every data PR."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "Apache-2.0" }
+authors = [{ name = "Blast Radius" }]
+keywords = ["datahub", "lineage", "dbt", "airflow", "mlops", "data-contracts", "agents"]
+
+# Runtime deps are deliberately tiny so the GitHub Action installs in <20s
+# and so the tool can NEVER fail on demo day because of a heavy transitive dep.
+# Everything else (DataHub SDK, LangGraph) is optional and degrades gracefully.
+dependencies = [
+  "sqlglot>=25.0.0",
+  "PyYAML>=6.0",
+]
+
+[project.optional-dependencies]
+# Live DataHub access via the Python SDK / GraphQL (headless CI runtime).
+datahub = [
+  "acryl-datahub>=0.14.0",
+]
+# LangGraph multi-agent orchestration (falls back to a deterministic
+# sequential runner with identical semantics when not installed).
+agent = [
+  "langgraph>=0.2.0",
+]
+# The hackathon Agent Context Kit (optional third context path).
+contextkit = [
+  "datahub-agent-context[langchain]>=0.1.0",
+  "langchain-openai>=0.2.0",
+]
+dev = [
+  "pytest>=8.0",
+  "ruff>=0.6",
+]
+all = [
+  "acryl-datahub>=0.14.0",
+  "langgraph>=0.2.0",
+  "pytest>=8.0",
+  "ruff>=0.6",
+]
+
+[project.scripts]
+blast-radius = "blast_radius.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/your-org/blast-radius"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"blast_radius" = ["fixtures/*.json", "templates/*.tmpl"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 100
+target-version = "py39"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+ignore = ["E501", "B008"]

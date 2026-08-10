@@ -1,0 +1,69 @@
+version: 2
+
+sources:
+  - name: billing
+    database: billing
+    schema: public
+    tables:
+      - name: user_transactions
+
+models:
+  - name: stg_user_transactions
+    description: >
+      Cleaned, deduplicated transactions. The single upstream for every
+      transaction-derived metric and feature in the warehouse.
+    config:
+      contract:
+        enforced: true
+    columns:
+      - name: user_id
+        data_type: bigint
+        tests: [not_null]
+      - name: txn_id
+        data_type: varchar
+        tests: [not_null, unique]
+      - name: txn_ts
+        data_type: timestamp
+      - name: txn_amount_usd
+        description: >
+          Transaction amount in USD. Feeds fraud_risk_v3 via
+          int_user_txns.velocity_calc. Renaming or dropping this column is a
+          CRITICAL change - land the Blast Radius migration first.
+        data_type: numeric(18,2)
+        tests: [not_null]
+      - name: merchant_id
+        data_type: bigint
+      - name: is_disputed
+        data_type: boolean
+
+  - name: int_user_txns
+    columns:
+      - name: user_id
+        data_type: bigint
+      - name: velocity_calc
+        data_type: numeric
+      - name: txn_count_7d
+        data_type: bigint
+
+  - name: fct_user_txn_features
+    config:
+      contract:
+        enforced: true
+    columns:
+      - name: user_id
+        data_type: bigint
+      - name: user_txn_velocity_7d
+        data_type: double
+      - name: user_txn_amount_avg_30d
+        data_type: double
+      - name: feature_ts
+        data_type: timestamp
+
+  - name: fct_revenue_daily
+    columns:
+      - name: revenue_date
+        data_type: date
+      - name: gross_revenue_usd
+        data_type: numeric(18,2)
+      - name: txn_count
+        data_type: bigint
