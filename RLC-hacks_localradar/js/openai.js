@@ -32,7 +32,7 @@ const AI = (() => {
      straight from the browser. Fine for a local demo; rotate the key or
      put it behind a small server proxy before deploying publicly.
      -------------------------------------------------------------------- */
-  const EMBEDDED_KEY = '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';
+  const EMBEDDED_KEY = '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';
 
   /* This is an OpenRouter key (the "sk-or-v1-" prefix), so BASE points at
      OpenRouter rather than api.openai.com. OpenRouter speaks the identical
