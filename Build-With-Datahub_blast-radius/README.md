@@ -271,6 +271,8 @@ than how many arrows point at a node.
 the fixture graph and says so. If the LLM key is missing, templates cover every
 artifact. A missing API key must never block a merge.
 
+---
+
 Copyright [2026] [Leo M]
 
 Licensed under the Apache License, Version 2.0 (the "License");
