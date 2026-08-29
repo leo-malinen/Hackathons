@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Privacy: Accessibility Copilot</title>
+<meta name="description" content="Settings live in your browser. No account, no page text collected for training, no inference about who you are, and a delete button that really deletes.">
+<meta name="theme-color" content="#F3EFE5">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%23F3EFE5'/%3E%3Cpath d='M4.5 18.5 L12 5.5 L19.5 18.5 M8 13.5 H16' fill='none' stroke='%231B4FD8' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<!-- DEPLOY STEP: patch og:url and og:image with the live absolute URL -->
+<meta property="og:title" content="Privacy: Accessibility Copilot">
+<meta property="og:description" content="Local by default. No account, no page text for training, no guesses about you.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://REPLACE-AT-DEPLOY/privacy.html">
+<meta property="og:image" content="https://REPLACE-AT-DEPLOY/assets/img/og.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,600;12..96,75..100,800&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="assets/css/site.css">
+<link rel="stylesheet" href="assets/css/copilot.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to the content</a>
+<div class="paper" aria-hidden="true"></div>
+<div class="spine" aria-hidden="true"></div>
+
+<nav class="nav" aria-label="Main">
+  <div class="wrap nav-in">
+    <a class="brand" href="index.html">
+      <svg class="brand-mark" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 18.5 L12 5.5 L19.5 18.5 M8 13.5 H16"/></svg>
+      Accessibility Copilot
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links">Menu</button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="demo.html">Live demo</a></li>
+      <li><a href="profiles.html">Profiles</a></li>
+      <li><a href="how-it-works.html">How it works</a></li>
+      <li><a href="privacy.html" aria-current="page">Privacy</a></li>
+      <li class="nav-cta"><a class="btn btn-primary btn-sm" href="get-started.html">Get started</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main id="main" tabindex="-1">
+
+  <section class="band-pad-sm">
+    <div class="wrap">
+      <div class="head head-split rise">
+        <div>
+          <p class="kicker">Privacy</p>
+          <h1>Your settings stay in your browser.</h1>
+        </div>
+        <p class="lede">A tool that watches how you read is a tool that could learn things about you that you never chose to tell anyone. That is a real risk and it deserves a plain answer rather than a policy. Here is the answer: everything is local, nothing is inferred, and one press deletes it all.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== KEPT AND NOT KEPT ===================== -->
+  <section class="band-pad-sm" aria-labelledby="h-keeps" data-alive>
+    <div class="wrap">
+      <h2 id="h-keeps" class="vh">What is kept and what is never collected</h2>
+      <div class="keeps rise">
+        <div>
+          <h3>What is kept, on your device</h3>
+          <ul class="yes">
+            <li>Your profiles: a name and a set of settings.</li>
+            <li>Which sites you have set differently, by their address only.</li>
+            <li>How many times you changed a setting yourself, as a number.</li>
+            <li>Which suggestions you have already turned down.</li>
+            <li>Which pages you have switched the Copilot off on.</li>
+            <li>The language service key, if you added one, and what it has cost you.</li>
+          </ul>
+        </div>
+        <div>
+          <h3>What is never collected</h3>
+          <ul class="no">
+            <li>The text of the pages you read.</li>
+            <li>What you type into any form, ever.</li>
+            <li>Passwords, card numbers, or anything in a protected field.</li>
+            <li>Your browsing history.</li>
+            <li>Any guess about your disability, diagnosis, age, or health.</li>
+            <li>Page content used to train a model. Not by default, not quietly, not at all.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== THE DATA MODEL ===================== -->
+  <section class="band-pad rule" aria-labelledby="h-model">
+    <div class="wrap">
+      <div class="head rise">
+        <p class="kicker">Everything it holds</p>
+        <h2 id="h-model">The whole list, not a summary of it.</h2>
+        <p class="lede">This is every kind of thing the product stores. If something is not on this list, it is not stored.</p>
+      </div>
+      <div class="table-scroll rise">
+        <table>
+          <caption class="vh">What the Copilot stores, where it lives, and how long it stays</caption>
+          <thead>
+            <tr><th scope="col">What</th><th scope="col">The fields</th><th scope="col">Where it lives, how long</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>A profile</td>
+              <td>name, settings, when it was made, when it changed</td>
+              <td>Your browser. Until you delete it.</td>
+            </tr>
+            <tr>
+              <td>A site setting</td>
+              <td>the site's address, which profile, what differs</td>
+              <td>Your browser. No page text is ever part of it.</td>
+            </tr>
+            <tr>
+              <td>A change you made</td>
+              <td>which setting, from what, to what, when</td>
+              <td>Your browser, briefly. Reset in one press.</td>
+            </tr>
+            <tr>
+              <td>A suggestion</td>
+              <td>what it wants to change, how many times it saw the pattern, accepted or dismissed</td>
+              <td>Your browser, until you answer it.</td>
+            </tr>
+            <tr>
+              <td>An applied change</td>
+              <td>category, which region, which operation, whether it held</td>
+              <td>This visit only, unless you send a problem report.</td>
+            </tr>
+            <tr>
+              <td>Feedback you send</td>
+              <td>which kind of change, was it better, an optional note</td>
+              <td>Counted with everyone else's. Never tied back to you.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== LANGUAGE SERVICE ===================== -->
+  <section class="band-pad rule" aria-labelledby="h-lang">
+    <div class="wrap">
+      <div class="head head-center rise">
+        <p class="kicker">The one thing that leaves</p>
+        <h2 id="h-lang">Rewriting is the only part that goes anywhere.</h2>
+        <p class="lede">Making text bigger happens on your machine. Rewriting a paragraph into plainer words may not. So this is the part to be careful about, and these are the rules it runs under.</p>
+      </div>
+      <div class="grid g-3 stagger">
+        <div class="card">
+          <h3>Only when you ask</h3>
+          <p style="color:var(--text-secondary);font-size:.95rem">Nothing is sent because a page loaded. It is sent because you selected a passage and pressed a button. Every time.</p>
+        </div>
+        <div class="card">
+          <h3>Only that passage</h3>
+          <p style="color:var(--text-secondary);font-size:.95rem">The passage you picked, and the least context needed to make sense of it. Not the page, not the site, not what you were doing before.</p>
+        </div>
+        <div class="card">
+          <h3>Never a field you filled</h3>
+          <p style="color:var(--text-secondary);font-size:.95rem">Form values, passwords, and payment fields are excluded before anything is packed up. This one is not a setting you can switch off by mistake.</p>
+        </div>
+      </div>
+      <div class="safety rise" style="margin-top:1.4rem">
+        <p class="kicker">How it works right now</p>
+        <h3 style="font-size:1.15rem">You bring the key, or nothing leaves at all.</h3>
+        <p style="max-width:var(--cp-measure);color:var(--text-secondary);margin:0 0 1rem">Rewriting is switched off until you put a key in yourself, under Language in the panel. There is no key inside this site and no account behind it. Until you add one, the panel says it is off and not a single word goes anywhere.</p>
+        <ul class="limits">
+          <li><strong>The key is written into this browser and nowhere else.</strong> Not into the site, not onto a server, not into the file you downloaded. Forget the key removes it.</li>
+          <li><strong>The first time you ask for a rewrite you are shown what is about to be sent,</strong> and you can say no. Shown once, then it gets out of your way.</li>
+          <li><strong>Only the passage goes.</strong> Not the page, not its address, not the site you are on, not what you were doing before.</li>
+          <li><strong>Anything you typed cannot be sent at all.</strong> Not by confirming, not by accident. The option does not appear on a form field.</li>
+          <li><strong>Payment, sign-in, legal, medical, and emergency wording asks first,</strong> every time, and shows you the words before it moves them.</li>
+          <li><strong>The panel shows what you have spent</strong> as you go, because a service you are paying for should not be quiet about it.</li>
+        </ul>
+        <p class="form-note" style="margin-top:1rem">Whether a shipped product would run this on your own machine instead is still open, and on-device would be the better answer. What is built today is the version above, and this page describes that rather than a plan.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CONTROLS ===================== -->
+  <section class="band-pad-sm rule" aria-labelledby="h-controls">
+    <div class="wrap">
+      <div class="head rise">
+        <p class="kicker">In your hands</p>
+        <h2 id="h-controls">Take it back whenever you like.</h2>
+        <p class="lede">These buttons are live and they act on this site's own Copilot, right now. Nothing here asks you to confirm twice or hides behind a menu.</p>
+      </div>
+
+      <div class="grid g-2 stagger">
+        <div class="card">
+          <h3>See what is stored</h3>
+          <p style="color:var(--text-secondary);font-size:.95rem">Everything the Copilot holds for this browser, as plain text. This is the whole of it, not a summary.</p>
+          <p style="margin-top:.9rem"><button type="button" class="btn btn-ghost" id="show-store">Show me everything</button></p>
+          <label class="field" id="store-wrap" hidden style="margin-top:.6rem">
+            <span>Everything stored, as text</span>
+            <textarea id="store-out" rows="9" readonly spellcheck="false" style="font-family:var(--mono);font-size:.72rem"></textarea>
+          </label>
+        </div>
+        <div class="card">
+          <h3>Delete it</h3>
+          <p style="color:var(--text-secondary);font-size:.95rem">The first button forgets what it learned and any profiles you built. The second puts every setting back and clears the lot.</p>
+          <p style="margin-top:.9rem;display:flex;gap:.5rem;flex-wrap:wrap">
+            <button type="button" class="btn btn-ghost" id="forget">Delete what it learned</button>
+            <button type="button" class="btn btn-primary" id="wipe">Delete everything</button>
+          </p>
+          <p class="field-note" id="wipe-say" role="status" style="min-height:1.4em"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== IF SYNC ARRIVES ===================== -->
+  <section class="band-pad-sm" aria-labelledby="h-sync">
+    <div class="wrap">
+      <div class="safety rise" data-cp-flag="stet">
+        <p class="kicker">Not yet built</p>
+        <h2 id="h-sync" style="font-size:clamp(1.5rem,2.9vw,2.1rem)">If settings ever follow you between devices.</h2>
+        <p style="max-width:var(--cp-measure);color:var(--text-secondary);margin:0 0 1rem">There is no account and no sync today. If it is ever built, these are the terms it has to meet, written down now while nobody is under pressure to ship it.</p>
+        <ul class="limits">
+          <li><strong>Off unless you switch it on.</strong> Never on by default, never on after an update.</li>
+          <li><strong>Encrypted on the way and at rest.</strong> Settings only. Never page content.</li>
+          <li><strong>Exportable and deletable</strong> from the same panel, with the deletion actually reaching the server.</li>
+          <li><strong>Still nothing inferred.</strong> Sync moves a settings file. It does not build a picture of you.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="band-pad-sm">
+    <div class="wrap">
+      <div class="close-cta rise pulse">
+        <div>
+          <p class="kicker">Next</p>
+          <h2>Set it up in about a minute.</h2>
+          <p style="color:var(--text-secondary);max-width:52ch">A few questions in preference language, none of them about a diagnosis, and a profile at the end of it. Or skip the questions entirely and go to the demo.</p>
+        </div>
+        <div>
+          <p style="margin-bottom:1rem"><a class="btn btn-primary" href="get-started.html">Get started</a></p>
+          <p style="margin:0"><a class="btn btn-ghost" href="demo.html">Open the live demo</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a class="brand" href="index.html">
+          <svg class="brand-mark" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 18.5 L12 5.5 L19.5 18.5 M8 13.5 H16"/></svg>
+          Accessibility Copilot
+        </a>
+        <p style="margin-top:.7rem;color:var(--text-secondary);font-size:.92rem;max-width:34ch">A personal reading layer for the web. One web, your way.</p>
+      </div>
+      <div>
+        <h3 class="foot-h">The product</h3>
+        <ul>
+          <li><a href="demo.html">Live demo</a></li>
+          <li><a href="profiles.html">Profiles</a></li>
+          <li><a href="how-it-works.html">How it works</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="foot-h">Trust</h3>
+        <ul>
+          <li><a href="privacy.html">Privacy</a></li>
+          <li><a href="how-it-works.html#limits">Known limits</a></li>
+          <li><a href="get-started.html">Get started</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="foot-h">Standards</h3>
+        <ul>
+          <li><a href="https://www.w3.org/TR/WCAG22/" rel="noopener">WCAG 2.2</a></li>
+          <li><a href="https://www.w3.org/TR/coga-usable/" rel="noopener">Making content usable</a></li>
+          <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion" rel="noopener">Reduced motion</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="foot-note"><span><strong>This site practises what the page says.</strong> It sets no cookies, runs no analytics, and loads nothing from anywhere except a font service. The only thing written to your browser is the Copilot profile you choose, and the buttons above delete it.</span></p>
+  </div>
+</footer>
+
+<script src="assets/js/queries.js" defer></script>
+<script src="assets/js/language.js" defer></script>
+<script src="assets/js/copilot.js" defer></script>
+<script src="assets/js/site.js" defer></script>
+<script src="assets/js/selection.js" defer></script>
+<script src="assets/js/pages.js" defer></script>
+</body>
+</html>

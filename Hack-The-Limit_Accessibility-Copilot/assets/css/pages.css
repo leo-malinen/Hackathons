@@ -1,0 +1,270 @@
+/* ==========================================================================
+   Shared parts for the inner pages: the profile grid, the control workshop,
+   the layer diagram, the operation record, the onboarding, and the tables.
+   ========================================================================== */
+
+/* --- Profiles page: the six ------------------------------------------------ */
+
+.prof-grid{
+  display:grid;gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:var(--rad);overflow:hidden;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+}
+@media (max-width:900px){.prof-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:600px){.prof-grid{grid-template-columns:minmax(0,1fr)}}
+
+.prof{
+  background:var(--panel);padding:clamp(1.1rem,2.2vw,1.6rem);
+  display:flex;flex-direction:column;gap:.7rem;
+}
+.prof[data-on="true"]{background:var(--accent-soft)}
+.prof h3{margin:0;display:flex;align-items:baseline;gap:.55rem}
+.prof h3 .n{font-family:var(--mono);font-size:.68rem;color:var(--accent);letter-spacing:.08em}
+.prof > p{color:var(--text-secondary);font-size:.94rem;margin:0}
+.prof ul{
+  list-style:none;padding:0;margin:0;display:grid;gap:.3rem;
+  font-family:var(--mono);font-size:.72rem;line-height:1.5;color:var(--text-secondary);
+}
+.prof li{display:flex;gap:.45rem;align-items:baseline;margin:0}
+.prof li::before{content:"+";color:var(--accent);flex:0 0 auto}
+.prof .go{margin-top:auto;padding-top:.4rem}
+.prof .go .btn{width:100%}
+
+/* --- Profiles page: the workshop ------------------------------------------- */
+
+/* Separate cards, aligned to the top. The five groups are very different
+   heights, so a seamless grid leaves empty cells that read as holes. */
+/* Columns pack the five groups with no empty cells. The width is capped so the
+   panel stays a deliberate block under the centred heading. */
+.workshop{
+  columns:2 258px;
+  column-gap:clamp(.8rem,1.6vw,1.2rem);
+  max-width:940px;margin-inline:auto;
+}
+.wk-group{
+  break-inside:avoid;
+  display:inline-block;width:100%;
+  margin-bottom:clamp(.8rem,1.6vw,1.2rem);
+  background:var(--panel);padding:clamp(1rem,2vw,1.4rem);
+  border:1px solid var(--line);border-radius:var(--rad);
+}
+.wk-group > h3{
+  font-family:var(--mono);font-size:.68rem;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--accent);margin:0 0 .9rem;font-weight:500;
+}
+.wk-ctrl{margin-bottom:.9rem}
+.wk-ctrl:last-child{margin-bottom:0}
+.wk-ctrl > label,.wk-ctrl > .lg{
+  display:flex;align-items:baseline;justify-content:space-between;gap:.6rem;
+  font-family:var(--mono);font-size:.76rem;margin-bottom:.32rem;
+}
+.wk-ctrl .val{color:var(--accent);font-size:.72rem}
+.wk-ctrl input[type="range"]{width:100%;accent-color:var(--accent);height:26px}
+.wk-ctrl select{
+  width:100%;font-family:var(--mono);font-size:.8rem;
+  color:var(--text-primary);background:var(--canvas);
+  border:1px solid var(--line-strong);border-radius:6px;padding:.45rem .5rem;min-height:38px;
+}
+
+.custom-list{margin-top:1rem;display:grid;gap:.4rem}
+.custom-list:empty{display:none}
+.custom-row{
+  display:flex;align-items:center;gap:.6rem;
+  padding:.5rem .65rem;background:var(--canvas);
+  border:1px solid var(--line);border-radius:var(--rad-sm);
+}
+.custom-row .nm{font-family:var(--mono);font-size:.78rem;flex:1;min-width:0;overflow-wrap:anywhere}
+
+.scope-row{
+  display:grid;gap:.8rem;grid-template-columns:repeat(3,minmax(0,1fr));
+}
+@media (max-width:760px){.scope-row{grid-template-columns:minmax(0,1fr)}}
+.scope-card{
+  background:var(--canvas);border:1px solid var(--line);
+  border-radius:var(--rad-sm);padding:.85rem;
+}
+.scope-card p{margin:.55rem 0 0;font-size:.88rem;color:var(--text-secondary)}
+
+/* --- How it works: the layer diagram --------------------------------------- */
+
+.layers{
+  display:grid;gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:var(--rad);overflow:hidden;
+}
+.layer{
+  background:var(--panel);
+  display:grid;grid-template-columns:11rem minmax(0,1fr) 2.6rem;
+  gap:clamp(.8rem,2vw,1.6rem);align-items:center;
+  padding:clamp(.9rem,1.9vw,1.35rem);
+}
+.layer .nm{
+  font-family:var(--display);font-weight:600;font-size:1.02rem;
+  display:flex;align-items:baseline;gap:.5rem;
+}
+.layer p{margin:0;color:var(--text-secondary);font-size:.94rem}
+.layer .ico{color:var(--accent);width:2.2rem;height:2.2rem;justify-self:end}
+.layer .ico path,.layer .ico circle,.layer .ico rect{
+  fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;
+}
+@media (max-width:760px){
+  .layer{grid-template-columns:minmax(0,1fr) 2.2rem;gap:.5rem 1rem}
+  .layer .nm{grid-column:1}
+  .layer .ico{grid-row:1/3;grid-column:2}
+  .layer p{grid-column:1}
+}
+
+/* --- How it works: one operation, recorded ---------------------------------- */
+
+.op{
+  background:var(--panel);border:1px solid var(--line-strong);
+  border-radius:var(--rad);overflow:hidden;
+}
+.op-head{
+  display:flex;align-items:center;gap:.7rem;flex-wrap:wrap;
+  padding:.85rem 1.1rem;background:var(--panel-2);border-bottom:1px solid var(--line);
+  font-family:var(--mono);font-size:.74rem;color:var(--text-secondary);
+}
+.op-head .tag{background:var(--accent-soft);border-color:var(--accent-muted);color:var(--accent)}
+.op-rows{display:grid}
+.op-row{
+  display:grid;grid-template-columns:9.5rem minmax(0,1fr);gap:1rem;
+  padding:.7rem 1.1rem;border-bottom:1px solid var(--line);
+  font-family:var(--mono);font-size:.8rem;
+}
+.op-row:last-child{border-bottom:0}
+.op-row .k{color:var(--text-secondary)}
+.op-row .v{color:var(--text-primary);overflow-wrap:anywhere}
+@media (max-width:620px){.op-row{grid-template-columns:minmax(0,1fr);gap:.15rem}}
+
+/* --- How it works: the learning proposal ------------------------------------ */
+
+.learn{
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  gap:clamp(1rem,2.4vw,2rem);align-items:start;
+}
+@media (max-width:860px){.learn{grid-template-columns:minmax(0,1fr)}}
+.learn-box{
+  background:var(--panel);border:1px solid var(--line);border-radius:var(--rad);
+  padding:clamp(1.1rem,2.2vw,1.6rem);
+}
+.learn-tally{
+  display:grid;gap:.4rem;margin:1rem 0;list-style:none;padding:0;
+  font-family:var(--mono);font-size:.78rem;color:var(--text-secondary);
+}
+.learn-tally li{display:flex;gap:.6rem;align-items:baseline;margin:0}
+.learn-tally .cnt{
+  color:var(--accent);border:1px solid var(--accent-muted);background:var(--accent-soft);
+  border-radius:4px;padding:.05rem .35rem;font-size:.7rem;
+}
+.propose{
+  border:1px solid var(--accent);background:var(--accent-soft);
+  border-radius:var(--rad-sm);padding:1rem;margin-top:1rem;
+}
+.propose[hidden]{display:none}
+.propose p{font-family:var(--mono);font-size:.8rem;line-height:1.6;margin:0 0 .8rem}
+.propose .row{display:flex;gap:.5rem;flex-wrap:wrap}
+
+/* --- Privacy: what is and is not kept --------------------------------------- */
+
+.keeps{
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  gap:1px;background:var(--line);border:1px solid var(--line);
+  border-radius:var(--rad);overflow:hidden;
+}
+@media (max-width:760px){.keeps{grid-template-columns:minmax(0,1fr)}}
+.keeps > div{background:var(--panel);padding:clamp(1.1rem,2.2vw,1.7rem)}
+.keeps h3{display:flex;align-items:center;gap:.5rem}
+.keeps ul{list-style:none;padding:0;margin:.9rem 0 0;display:grid;gap:.5rem}
+.keeps li{
+  display:flex;gap:.6rem;align-items:baseline;margin:0;
+  font-size:.94rem;color:var(--text-secondary);
+}
+.keeps .yes li::before{content:"\2713";color:var(--good);font-weight:700}
+.keeps .no li::before{content:"\2715";color:var(--warn);font-weight:700}
+
+/* --- Get started: the onboarding -------------------------------------------- */
+
+.onb{
+  background:var(--panel);border:1px solid var(--line-strong);
+  border-radius:var(--rad);overflow:hidden;
+}
+.onb-head{
+  padding:.9rem 1.2rem;background:var(--panel-2);border-bottom:1px solid var(--line);
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;
+}
+.onb-head h3{margin:0;font-size:1rem}
+.onb-prog{
+  font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;color:var(--text-secondary);
+}
+.onb-body{padding:clamp(1.2rem,2.6vw,2rem)}
+.onb-q{font-family:var(--display);font-weight:700;font-size:clamp(1.25rem,2.4vw,1.7rem);
+  letter-spacing:-.015em;margin:0 0 .5rem}
+.onb-note{color:var(--text-secondary);font-size:.95rem;margin:0 0 1.2rem;max-width:52ch}
+.onb-opts{display:grid;gap:.5rem;margin-bottom:1.3rem}
+.onb-opt{
+  text-align:left;cursor:pointer;
+  display:grid;grid-template-columns:1.1rem minmax(0,1fr);gap:.7rem;align-items:start;
+  padding:.8rem .9rem;background:var(--canvas);
+  border:1px solid var(--line);border-radius:var(--rad-sm);color:var(--text-primary);
+  transition:border-color var(--t-fast) var(--ease),background-color var(--t-fast) var(--ease);
+  min-height:48px;
+}
+.onb-opt:hover{border-color:var(--accent);background:var(--accent-soft)}
+.onb-opt[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.onb-opt .dot{width:.9rem;height:.9rem;border-radius:100px;margin-top:.28rem;border:2px solid var(--line-strong)}
+.onb-opt[aria-pressed="true"] .dot{border-color:var(--accent);background:var(--accent);box-shadow:inset 0 0 0 2px var(--canvas)}
+.onb-opt .nm{font-weight:600;display:block}
+.onb-opt .ds{font-family:var(--mono);font-size:.72rem;line-height:1.5;color:var(--text-secondary);display:block;margin-top:.15rem}
+.onb-nav{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center}
+.onb-result{display:grid;gap:.9rem}
+.onb-summary{
+  list-style:none;padding:0;margin:0;display:grid;gap:.4rem;
+  font-family:var(--mono);font-size:.78rem;color:var(--text-secondary);
+}
+.onb-summary li{display:flex;gap:.55rem;align-items:baseline;margin:0}
+.onb-summary li::before{content:"+";color:var(--accent)}
+
+/* --- Steps used on Get started ---------------------------------------------- */
+
+.steps{counter-reset:s;display:grid;gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:var(--rad);overflow:hidden}
+.step{
+  background:var(--panel);padding:clamp(1.1rem,2.2vw,1.6rem);
+  display:grid;grid-template-columns:2.4rem minmax(0,1fr);gap:1rem;align-items:start;
+}
+.step::before{
+  counter-increment:s;content:counter(s);
+  font-family:var(--mono);font-size:.8rem;color:var(--accent);
+  border:1px solid var(--accent-muted);background:var(--accent-soft);
+  border-radius:100px;width:2.1rem;height:2.1rem;
+  display:flex;align-items:center;justify-content:center;
+}
+.step h3{margin:0 0 .3rem}
+.step p{margin:0;color:var(--text-secondary);font-size:.95rem}
+.step p + p{margin-top:.5rem}
+
+/* --- Limits list ------------------------------------------------------------ */
+
+/* .safety ul sets three columns for its short chips. A limits list inside one
+   is prose, not chips, so it needs to win that. */
+.limits,
+.safety ul.limits{list-style:none;padding:0;margin:0;display:grid;gap:.6rem;grid-template-columns:minmax(0,1fr)}
+.safety ul.limits{margin-top:1.2rem}
+/* A grid or flex list item turns every bare text node into its own item, which
+   tears a sentence apart at the <strong>. Keep the item a plain block. */
+.limits li{
+  position:relative;padding-left:1.7rem;margin:0;
+  color:var(--text-secondary);font-size:.95rem;line-height:1.6;
+  max-width:var(--cp-measure);
+}
+.limits li::before{
+  content:"\2014";position:absolute;left:0;top:0;color:var(--accent);
+}
+/* .safety li is a flex chip, which would tear these sentences apart at the
+   <strong> the same way a grid item does. Inside a limits list they are prose. */
+.safety ul.limits li{
+  display:block;font-family:var(--body);font-size:.95rem;
+  color:var(--text-secondary);
+}
+.safety ul.limits li::before{content:"\2014";color:var(--accent);font-weight:400}
+.limits strong{color:var(--text-primary);font-weight:600}

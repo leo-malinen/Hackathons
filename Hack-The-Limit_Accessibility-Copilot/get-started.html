@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Get started: Accessibility Copilot</title>
+<meta name="description" content="Four questions in preference language, none about a diagnosis, and a working profile at the end. Or skip them and go straight to the demo.">
+<meta name="theme-color" content="#F3EFE5">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%23F3EFE5'/%3E%3Cpath d='M4.5 18.5 L12 5.5 L19.5 18.5 M8 13.5 H16' fill='none' stroke='%231B4FD8' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<!-- DEPLOY STEP: patch og:url and og:image with the live absolute URL -->
+<meta property="og:title" content="Get started: Accessibility Copilot">
+<meta property="og:description" content="Four questions, no diagnosis asked, a working profile at the end.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://REPLACE-AT-DEPLOY/get-started.html">
+<meta property="og:image" content="https://REPLACE-AT-DEPLOY/assets/img/og.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,600;12..96,75..100,800&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="assets/css/site.css">
+<link rel="stylesheet" href="assets/css/copilot.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to the content</a>
+<div class="paper" aria-hidden="true"></div>
+<div class="spine" aria-hidden="true"></div>
+
+<nav class="nav" aria-label="Main">
+  <div class="wrap nav-in">
+    <a class="brand" href="index.html">
+      <svg class="brand-mark" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 18.5 L12 5.5 L19.5 18.5 M8 13.5 H16"/></svg>
+      Accessibility Copilot
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links">Menu</button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="demo.html">Live demo</a></li>
+      <li><a href="profiles.html">Profiles</a></li>
+      <li><a href="how-it-works.html">How it works</a></li>
+      <li><a href="privacy.html">Privacy</a></li>
+      <li class="nav-cta"><a class="btn btn-primary btn-sm" href="get-started.html" aria-current="page">Get started</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main id="main" tabindex="-1">
+
+  <section class="band-pad-sm">
+    <div class="wrap">
+      <div class="head head-split rise">
+        <div>
+          <p class="kicker">Get started</p>
+          <h1>Four questions. No diagnosis asked.</h1>
+        </div>
+        <p class="lede">Nothing here asks what is wrong with you, because that is not the Copilot's business and it is not what the settings are made of. It asks what you prefer. You can answer all four, answer none, or go straight to the demo and come back.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== ONBOARDING ===================== -->
+  <section class="band-pad-sm" aria-labelledby="h-onb" data-alive>
+    <div class="wrap">
+      <h2 id="h-onb" class="vh">Set up a profile</h2>
+      <div class="onb rise" id="onb">
+        <div class="onb-head">
+          <h3 id="onb-title">A few preferences</h3>
+          <span class="onb-prog" id="onb-prog">Question 1 of 4</span>
+        </div>
+        <div class="onb-body">
+          <p class="onb-q" id="onb-q">Loading the questions.</p>
+          <p class="onb-note" id="onb-note"></p>
+          <div class="onb-opts" id="onb-opts" role="group" aria-labelledby="onb-q"></div>
+          <div class="onb-nav">
+            <button type="button" class="btn btn-ghost" id="onb-back">Back</button>
+            <button type="button" class="btn btn-primary" id="onb-next">Next question</button>
+            <button type="button" class="btn btn-ghost" id="onb-skip">Skip all of this</button>
+          </div>
+        </div>
+      </div>
+      <p class="form-note" style="margin-top:.9rem">Answering applies the settings to this site straight away, so you can see what you have chosen instead of guessing. The panel at the bottom right lists every change with a stet beside it.</p>
+    </div>
+  </section>
+
+  <!-- ===================== THREE WAYS ===================== -->
+  <section class="band-pad rule" aria-labelledby="h-ways">
+    <div class="wrap">
+      <div class="head head-center rise">
+        <p class="kicker">Three ways in</p>
+        <h2 id="h-ways">However you would rather start.</h2>
+      </div>
+      <div class="grid g-3 stagger">
+        <div class="card">
+          <p class="kicker">One</p>
+          <h3>Answer the questions</h3>
+          <p style="color:var(--text-secondary);font-size:.95rem">The four above. You end with a profile named after what it does, which you can rename or throw away.</p>
+        </div>
+        <div class="card">
+          <p class="kicker">Two</p>
+          <h3>Take one of the six</h3>
+          <p style="color:var(--text-secondary);font-size:.95rem">Clear Reading, Low Motion, High Contrast, Focus Mode, Keyboard First, or Plain Language. Apply one and change what you do not like.</p>
+          <p style="margin-top:.9rem"><a class="btn btn-ghost btn-sm" href="profiles.html">See the six</a></p>
+        </div>
+        <div class="card">
+          <p class="kicker">Three</p>
+          <h3>Set nothing at all</h3>
+          <p style="color:var(--text-secondary);font-size:.95rem">Open the demo and press things. It needs no account, no install, and no answers from you.</p>
+          <p style="margin-top:.9rem"><a class="btn btn-ghost btn-sm" href="demo.html">Open the demo</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== INSTALL ===================== -->
+  <section class="band-pad rule" aria-labelledby="h-install">
+    <div class="wrap">
+      <div class="head head-split rise">
+        <div>
+          <p class="kicker">Install it now</p>
+          <h2 id="h-install">It runs on real websites today.</h2>
+        </div>
+        <p class="lede">Not a plan for later. One file, installed in a couple of clicks through a userscript manager, and from then on the Copilot is on every site you visit. Chrome, Edge, Firefox, Brave, and Safari, because a userscript does not care which one you use.</p>
+      </div>
+
+      <div class="steps rise">
+        <div class="step">
+          <div>
+            <h3>Get a userscript manager</h3>
+            <p><a href="https://www.tampermonkey.net/" rel="noopener">Tampermonkey</a> or <a href="https://violentmonkey.github.io/" rel="noopener">Violentmonkey</a>. Both are free, both are in the extension stores, and either one will do.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div>
+            <h3>Open the script and press install</h3>
+            <p>Your manager notices the address ends in <code>.user.js</code>, opens its own install screen, and shows you the whole script before anything runs. Read it if you like. It is one file with nothing hidden in it.</p>
+            <p style="margin-top:.9rem"><a class="btn btn-primary" href="accessibility-copilot.user.js">Install the userscript</a></p>
+          </div>
+        </div>
+        <div class="step">
+          <div>
+            <h3>Go to any website</h3>
+            <p>Press the Copilot button at the bottom right, or hold Alt and press A. Pick a profile, or open Controls and set one thing at a time.</p>
+            <p>Select any sentence and a small bar offers to put it in plain words. That part needs a key of your own, under Language, and stays off until you add one.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div>
+            <h3>Change your mind whenever you like</h3>
+            <p>Restore original puts the page back. Turn off here switches it off for one site. Delete all of it clears every setting on every site. None of that needs a settings screen or a confirmation you have to hunt for.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="safety rise" style="margin-top:clamp(1.2rem,2.4vw,2rem)">
+        <p class="kicker">What it asks for, and why</p>
+        <h3 style="font-size:1.15rem">Three permissions, each with a reason.</h3>
+        <ul class="limits">
+          <li><strong>Run on every site.</strong> It cannot change a page it is not allowed to read. Your manager can narrow this to a list of sites you choose, and the Copilot has its own Turn off here for one site at a time.</li>
+          <li><strong>Store settings.</strong> Your profiles, your per-site settings, and the key if you add one. They live in the manager's own storage on your machine. Nothing is sent anywhere and there is no account.</li>
+          <li><strong>Reach one address on the internet.</strong> Only <code>openrouter.ai</code>, only when you have picked a passage and asked for it. That single host is written into the script's header, so your manager will refuse anything else.</li>
+        </ul>
+        <p class="form-note" style="margin-top:1rem">Before you install it, read <a href="how-it-works.html#limits">what it cannot do</a>. It is a short list and it is better read first than found out later.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== WAITLIST ===================== -->
+  <section class="band-pad-sm" id="join">
+    <div class="wrap">
+      <div class="close-cta rise pulse">
+        <div>
+          <p class="kicker">The closed beta</p>
+          <h2>Choose how you want the web to work.</h2>
+          <p style="color:var(--text-secondary);max-width:50ch">The beta will be small on purpose, and weighted towards people who use screen readers, keyboards, magnification, and plain language every day. Say which describes you if you want to, or say nothing.</p>
+          <p style="color:var(--text-secondary);max-width:50ch;margin-top:.8rem">Beta participants are paid for their time, and nobody is asked to name a diagnosis to take part.</p>
+        </div>
+        <form data-demo-form novalidate>
+          <div class="form-fields">
+            <label class="field">
+              <span>Email</span>
+              <input type="email" name="email" autocomplete="email" required placeholder="you@example.com">
+            </label>
+            <label class="field">
+              <span>How do you usually read the web? (optional)</span>
+              <select name="how">
+                <option value="">I would rather not say</option>
+                <option>With a screen reader</option>
+                <option>With magnification or large text</option>
+                <option>Keyboard or switch, no mouse</option>
+                <option>I prefer plainer wording</option>
+                <option>I need pages to stay still</option>
+                <option>I support somebody who does</option>
+              </select>
+            </label>
+            <button class="btn btn-primary" type="submit" style="width:100%">Join the beta list</button>
+            <p class="form-note">This is a demo site with no server behind it. Nothing is sent anywhere, and what you type here stays in this browser tab.</p>
+          </div>
+          <div class="form-done" hidden>
+            <p><strong>That is the honest version.</strong></p>
+            <p style="margin:0">Nothing was sent, because there is nowhere to send it. On the real product this is where a confirmation would arrive, along with a note about what taking part involves.</p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a class="brand" href="index.html">
+          <svg class="brand-mark" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 18.5 L12 5.5 L19.5 18.5 M8 13.5 H16"/></svg>
+          Accessibility Copilot
+        </a>
+        <p style="margin-top:.7rem;color:var(--text-secondary);font-size:.92rem;max-width:34ch">A personal reading layer for the web. One web, your way.</p>
+      </div>
+      <div>
+        <h3 class="foot-h">The product</h3>
+        <ul>
+          <li><a href="demo.html">Live demo</a></li>
+          <li><a href="profiles.html">Profiles</a></li>
+          <li><a href="how-it-works.html">How it works</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="foot-h">Trust</h3>
+        <ul>
+          <li><a href="privacy.html">Privacy</a></li>
+          <li><a href="how-it-works.html#limits">Known limits</a></li>
+          <li><a href="get-started.html">Get started</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="foot-h">Standards</h3>
+        <ul>
+          <li><a href="https://www.w3.org/TR/WCAG22/" rel="noopener">WCAG 2.2</a></li>
+          <li><a href="https://www.w3.org/TR/coga-usable/" rel="noopener">Making content usable</a></li>
+          <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion" rel="noopener">Reduced motion</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="foot-note"><span><strong>Accessibility Copilot is a demo product, built to show the idea.</strong> There is no extension to install yet and no beta list to join. The form above is here to show the shape of it, and it sends nothing anywhere.</span></p>
+  </div>
+</footer>
+
+<script src="assets/js/queries.js" defer></script>
+<script src="assets/js/language.js" defer></script>
+<script src="assets/js/copilot.js" defer></script>
+<script src="assets/js/site.js" defer></script>
+<script src="assets/js/selection.js" defer></script>
+<script src="assets/js/pages.js" defer></script>
+</body>
+</html>

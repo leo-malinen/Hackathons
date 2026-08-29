@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Accessibility Copilot: read the web the way you need to</title>
+<meta name="description" content="A personal reading layer for the web. You pick what changes, it tells you what it did in plain words, and one press puts the page back.">
+<meta name="theme-color" content="#F3EFE5">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%23F3EFE5'/%3E%3Cpath d='M4.5 18.5 L12 5.5 L19.5 18.5 M8 13.5 H16' fill='none' stroke='%231B4FD8' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<!-- DEPLOY STEP: patch og:url and og:image with the live absolute URL -->
+<meta property="og:title" content="Accessibility Copilot">
+<meta property="og:description" content="A personal reading layer for the web. Nothing changes unless you ask, and one press puts it back.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://REPLACE-AT-DEPLOY/">
+<meta property="og:image" content="https://REPLACE-AT-DEPLOY/assets/img/og.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,600;12..96,75..100,800&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="assets/css/site.css">
+<link rel="stylesheet" href="assets/css/copilot.css">
+<noscript><style>
+  .hero{height:auto!important}
+  .hero .hero-stage{position:relative!important;height:auto!important;min-height:0!important;padding-block:3.5rem}
+  .band-2,.band-3,.band-4,.hero-cue{display:none!important}
+  .band-1{opacity:1!important}
+  .band::before{display:none}
+  .band p.hero-static{display:block!important}
+  .band .cta-row.hero-static{display:flex!important}
+  .sheet{--p:1;--ruler:0;--noise:0;--pl:1;--m:1}
+  .sheet-noise{display:none}
+  .rise,.stagger>*{opacity:1!important;transform:none!important}
+</style></noscript>
+</head>
+<body>
+<a class="skip" href="#main">Skip to the content</a>
+<div class="paper" aria-hidden="true"></div>
+<div class="spine" aria-hidden="true"></div>
+
+<nav class="nav" aria-label="Main">
+  <div class="wrap nav-in">
+    <a class="brand" href="index.html">
+      <svg class="brand-mark" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 18.5 L12 5.5 L19.5 18.5 M8 13.5 H16"/></svg>
+      Accessibility Copilot
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links">Menu</button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html" aria-current="page">Home</a></li>
+      <li><a href="demo.html">Live demo</a></li>
+      <li><a href="profiles.html">Profiles</a></li>
+      <li><a href="how-it-works.html">How it works</a></li>
+      <li><a href="privacy.html">Privacy</a></li>
+      <li class="nav-cta"><a class="btn btn-primary btn-sm" href="get-started.html">Get started</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main id="main" tabindex="-1">
+
+  <!-- ===================== HERO ===================== -->
+  <header class="hero" id="hero">
+    <div class="hero-stage">
+      <div class="hero-grid">
+
+        <div class="hero-bands">
+          <div class="band band-1" data-range="0,0.22">
+            <h1>Most sites were not built for how you read.</h1>
+            <p class="sub hero-static">Accessibility Copilot changes how a page looks, reads, and moves. You pick what changes. It tells you what it did. One press puts it back.</p>
+            <div class="cta-row hero-static">
+              <a class="btn btn-primary" href="demo.html">Try the live demo</a>
+              <a class="btn btn-ghost" href="profiles.html">See the six profiles</a>
+            </div>
+          </div>
+
+          <div class="band band-2" data-range="0.20,0.48">
+            <p class="beat">So change them. Every site, every time.</p>
+          </div>
+
+          <div class="band band-3" data-range="0.46,0.74">
+            <p class="beat">Bigger type. Calmer motion. Simpler words.</p>
+          </div>
+
+          <div class="band band-4" data-range="0.72,1">
+            <p class="beat">Nothing changes unless you ask.</p>
+            <p class="sub">And one press puts it back. Editors have a mark for that. Stet: let it stand.</p>
+            <div class="cta-row">
+              <a class="btn btn-primary" href="demo.html">Try the live demo</a>
+              <a class="btn btn-ghost" href="profiles.html">See the six profiles</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="sheet" aria-hidden="true">
+          <div class="sheet-head">
+            <span class="sheet-title">Riverside Weekly</span>
+            <span class="sheet-state">as published</span>
+          </div>
+          <div class="sheet-marks">
+            <svg viewBox="0 0 20 24" style="top:1.2em"><path d="M3 17 L10 6 L17 17 M10 6 V19"/></svg>
+            <svg viewBox="0 0 20 24" style="top:6.4em"><path d="M15 4 H8 a4 4 0 0 0 0 8 h3 M13 4 V19 M16 4 V19"/></svg>
+            <svg viewBox="0 0 20 24" style="top:11.6em"><path d="M4 18 L10 6 L16 18 M6.5 13 H13.5"/></svg>
+          </div>
+          <div class="sheet-ruler"></div>
+          <div class="sheet-noise"></div>
+          <div class="sheet-body">
+            <p>The council has published the new parking scheme, and residents have until the last day of the month to respond to it in writing or through the online form.</p>
+            <p>Applications open on Monday morning. Households that already hold a permit do not need to apply again, although the council asks that everyone check their details.
+              <span class="plain">In plain words: reply by the end of the month. Applications open Monday. Already have a permit? You do not need to apply again. Check your details are right.</span>
+            </p>
+            <p>Paper forms are available at the library and at the front desk of the town hall during opening hours.</p>
+          </div>
+        </div>
+
+      </div>
+      <p class="hero-cue" aria-hidden="true">Scroll<span></span></p>
+    </div>
+  </header>
+
+  <!-- ===================== THE DIFFERENCE ===================== -->
+  <section class="band-pad" aria-labelledby="h-overlay" data-alive>
+    <div class="wrap">
+      <div class="head head-split rise">
+        <div>
+        <p class="kicker">The difference</p>
+        <h2 id="h-overlay">This is not an overlay.</h2>
+        </div>
+        <p class="lede">People flinch at the words accessibility widget, and the flinch is earned. The National Federation of the Blind reports that overlays often get in the way of a screen reader. In one study, screen reader users walked past accessibility menus while working and not one of them opened one. So here is the difference, stated plainly, before anything else.</p>
+      </div>
+
+      <div class="ledger rise pulse">
+        <div class="ledger-row">
+          <div>
+            <span class="ledger-head">An overlay</span>
+            <p>The website's owner installs it, once, for every visitor at the same time.</p>
+          </div>
+          <div>
+            <span class="ledger-head">Accessibility Copilot</span>
+            <p>You install it. It travels with you and works the same way on every site you visit.</p>
+          </div>
+        </div>
+        <div class="ledger-row">
+          <div>
+            <span class="ledger-head">Who it speaks for</span>
+            <p>It guesses what a visitor needs and announces itself to their screen reader whether they asked or not.</p>
+          </div>
+          <div>
+            <span class="ledger-head">Who it speaks for</span>
+            <p>It does what you set and nothing else. It never guesses a diagnosis, an age, or a health condition about you.</p>
+          </div>
+        </div>
+        <div class="ledger-row">
+          <div>
+            <span class="ledger-head">When it gets it wrong</span>
+            <p>You are stuck with it, or you leave the site.</p>
+          </div>
+          <div>
+            <span class="ledger-head">When it gets it wrong</span>
+            <p>Every change is listed in plain words with a stet beside it. One press puts one back. One press puts everything back.</p>
+          </div>
+        </div>
+      </div>
+
+      <p class="form-note rise" style="margin-top:1.1rem">Sources for the two claims above:
+        <a href="https://www.nfb.org/about-us/press-room/national-convention-resolutions" rel="noopener">National Federation of the Blind resolutions</a> and
+        <a href="https://mrwweb.com/screen-readers-users-do-not-use-overlays/" rel="noopener">a write-up of the screen reader study</a>.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================== FIVE THINGS ===================== -->
+  <section class="band-pad rule" aria-labelledby="h-changes" data-alive>
+    <div class="wrap">
+      <div class="head head-center rise">
+        <p class="kicker">What it does</p>
+        <h2 id="h-changes">Five things it changes.</h2>
+        <p class="lede">Each one is a set of small, reversible operations. Each one shows up in the change log with a reason you can read. Try them for real in the panel at the bottom right of this page.</p>
+      </div>
+
+      <div class="changes rise">
+        <div class="change">
+          <span class="change-n">01</span>
+          <div>
+            <h3>Type</h3>
+            <p>Size, line spacing, letter spacing, word spacing, and how far a line runs before it wraps. Airing the text out is the change readers report helping most, more than any single font ever does.</p>
+          </div>
+          <div class="demo-chip">
+            <span class="lbl">Before and after</span>
+            <p style="margin:0 0 .5rem;letter-spacing:-.015em;line-height:1.18;opacity:.6;font-size:.86rem">Residents have until the last day of the month to respond.</p>
+            <p style="margin:0;letter-spacing:.045em;word-spacing:.1em;line-height:1.85;font-size:.92rem">Residents have until the last day of the month to respond.</p>
+          </div>
+        </div>
+
+        <div class="change">
+          <span class="change-n">02</span>
+          <div>
+            <h3>Colour</h3>
+            <p>Stronger contrast, links marked rather than only coloured, and shifts for red weak, green weak, and blue weak vision. Around 81 in every 100 of the web's most visited home pages carry low contrast text.</p>
+          </div>
+          <div class="demo-chip">
+            <span class="lbl">Links, colour alone and marked</span>
+            <p style="margin:0 0 .5rem"><span style="color:var(--accent)">Read the parking scheme</span></p>
+            <p style="margin:0"><span style="color:var(--accent);text-decoration:underline;text-decoration-thickness:.12em;text-underline-offset:.16em;font-weight:600;background:var(--accent-soft);border-radius:2px;box-shadow:0 0 0 2px var(--accent-soft)">Read the parking scheme</span></p>
+          </div>
+        </div>
+
+        <div class="change">
+          <span class="change-n">03</span>
+          <div>
+            <h3>Motion</h3>
+            <p>Animation stopped, auto-play stopped, parallax stopped, drifting backgrounds held still. By the age of forty, more than a third of adults have had some kind of vestibular trouble, and a page that moves without being asked is not a small thing for them.</p>
+          </div>
+          <div class="demo-chip">
+            <span class="lbl">A moving banner, and the same one stopped</span>
+            <p class="promo-strip" style="margin:0 0 .5rem;overflow:hidden;white-space:nowrap"><span style="display:inline-block;animation:slidein 3.4s linear infinite;animation-delay:-1.1s">Sale ends soon · Sale ends soon · Sale ends soon ·</span></p>
+            <p style="margin:0;overflow:hidden;white-space:nowrap;opacity:.75">Sale ends soon · Sale ends soon ·</p>
+          </div>
+        </div>
+
+        <div class="change">
+          <span class="change-n">04</span>
+          <div>
+            <h3>Structure</h3>
+            <p>A skip link added where one is missing, headings numbered so you can hear the shape of the page, regions drawn, and a focus ring you can actually find. It never quietly reorders anything, because moving a control can change what a task means.</p>
+          </div>
+          <div class="demo-chip">
+            <span class="lbl">Headings, numbered</span>
+            <p style="margin:0 0 .4rem"><span class="tag">H2 · 1</span> Parking scheme</p>
+            <p style="margin:0"><span class="tag">H3 · 1.1</span> Who needs to apply</p>
+          </div>
+        </div>
+
+        <div class="change">
+          <span class="change-n">05</span>
+          <div>
+            <h3>Words</h3>
+            <p>A plain-language version of a passage you picked, with the original one press away and a note saying a rewrite can drop nuance. It never rewrites on its own, and it never rewrites the places listed below.</p>
+          </div>
+          <div class="demo-chip">
+            <span class="lbl">Original, then plain</span>
+            <p style="margin:0 0 .5rem;opacity:.65">Households already in possession of a valid permit are not required to submit a further application.</p>
+            <p style="margin:0;border-left:2px solid var(--accent);padding-left:.6rem">Already have a permit? You do not need to apply again.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== AUTHOR QUERIES ===================== -->
+  <section class="band-pad rule" aria-labelledby="h-queries" data-alive>
+    <div class="wrap">
+      <div class="head head-split rise">
+        <div>
+          <p class="kicker">The honest half</p>
+          <h2 id="h-queries">And the things it cannot fix.</h2>
+        </div>
+        <p class="lede">Every tool in this corner of the web tells you what it repairs. This one also tells you what it cannot, on the page you are standing on, in plain words. Printers have a name for that. When a proofreader finds something only the writer can put right, they raise an <strong>author query</strong>.</p>
+      </div>
+
+      <div class="queries-two rise">
+        <div class="q-col q-blocked">
+          <h3>It will not touch these</h3>
+          <p>Fixing any of them means guessing at what somebody meant, and a wrong guess is worse than the problem.</p>
+          <ul>
+            <li><strong>A picture with no description.</strong> Only the person who put it there knows what it shows.</li>
+            <li><strong>A button with no name.</strong> The Copilot could guess from what sits nearby. On a button that spends money, it does not.</li>
+            <li><strong>A link that reads "read more".</strong> Rewriting where a link says it goes can send you somewhere you did not choose.</li>
+            <li><strong>A heading level skipped.</strong> Renumbering headings changes what a page claims about itself.</li>
+            <li><strong>A field with no label.</strong> It will not name a box you are about to type into and might name wrongly.</li>
+          </ul>
+        </div>
+        <div class="q-col q-covered">
+          <h3>It can cover these</h3>
+          <p>It can make them bearable for you. The page is still broken underneath, for everyone who arrives without it.</p>
+          <ul>
+            <li><strong>Text under the contrast floor.</strong> High Contrast lifts it in a moment and fixes it for nobody else.</li>
+            <li><strong>No main region to skip to.</strong> The Copilot adds a skip link pointed at its best guess.</li>
+            <li><strong>Controls too small to hit.</strong> It can pad what you press without moving the layout around it.</li>
+            <li><strong>Media that starts itself.</strong> Low Motion stops it here and nowhere else.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="q-note rise">
+        <p><strong>We ran it on all six pages of this site.</strong> It comes back clean. That is the least anyone is owed rather than something to be proud of, and the check only knows how to look for a dozen things. Open it on the demo page and it finds nine, because that sample page is built the way real council sites are built.</p>
+        <p style="margin:0"><button type="button" class="btn btn-primary" data-open-queries>Run it on this page</button></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== THE HOLD MOMENT ===================== -->
+  <section class="band-pad rule" aria-labelledby="h-hold" data-alive>
+    <div class="wrap">
+      <div class="head rise">
+        <p class="kicker">Try it</p>
+        <h2 id="h-hold">Hold to air the text out.</h2>
+        <p class="lede">This is the whole product in one thumb. Press and hold, and the paragraph opens up. Let go early and it eases back exactly where it was.</p>
+      </div>
+
+      <div class="hold-wrap">
+        <div class="hold-para rise" data-cp-flag="stet">
+          <p>The council has published the new parking scheme and residents have until the last day of the month to respond, either in writing to the address printed on the notice or through the online form, which will remain open for the same period. Applications open on Monday morning and paper copies are available at the library.</p>
+        </div>
+        <div class="hold-ctrl">
+          <button type="button" class="hold-btn rise" aria-pressed="false" data-idle="Press and hold" data-done="Held. It stays now."><span></span><span>Press and hold</span></button>
+          <p class="hold-note">Let go early and it eases back where it was. That is the promise, and it is the same promise on every page you visit.</p>
+          <ul class="hold-reveal" style="list-style:none;padding:0;margin:0;display:grid;gap:.45rem;font-family:var(--mono);font-size:.78rem;line-height:1.55">
+            <li><strong>Letters</strong> get room to sit apart.</li>
+            <li><strong>Lines</strong> stop crowding the one below.</li>
+            <li><strong>The measure</strong> shortens, so your eye finds the next line.</li>
+            <li><strong>Contrast</strong> lifts to full ink.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== WHO IT IS FOR ===================== -->
+  <section class="band-pad rule" aria-labelledby="h-people" data-alive>
+    <div class="wrap">
+      <div class="head head-center rise">
+        <p class="kicker">Who it is for</p>
+        <h2 id="h-people">Six people, six settings, one page.</h2>
+        <p class="lede">Profiles are named after what they do, never after a person or a condition. Nobody has to say what is wrong with them to read a website.</p>
+      </div>
+
+      <div class="people rise">
+        <div class="person">
+          <span class="who">Reading long things</span>
+          <p class="said">“Help me read a long article without losing my place.”</p>
+          <p>Comfortable type, a line that does not run on forever, a ruler to hold the line, and less to look at around it.</p>
+        </div>
+        <div class="person">
+          <span class="who">Working without a mouse</span>
+          <p class="said">“Let me finish a task without reaching for a mouse.”</p>
+          <p>A focus ring you can find at a glance, a skip link that is really there, and the page's regions on show.</p>
+        </div>
+        <div class="person">
+          <span class="who">Wanting plainer words</span>
+          <p class="said">“Help me understand this without changing what it means.”</p>
+          <p>Shorter sentences, a summary of what a page is asking you to do, and the original text kept beside the rewrite.</p>
+        </div>
+        <div class="person">
+          <span class="who">Seeing low contrast</span>
+          <p class="said">“Make the important things easier to tell apart.”</p>
+          <p>Contrast pushed to its strongest, bigger type, and spacing that still holds up when the page is magnified.</p>
+        </div>
+        <div class="person">
+          <span class="who">Sensitive to movement</span>
+          <p class="said">“Stop the page moving when I did not ask it to.”</p>
+          <p>No auto-play, no parallax, no drifting background, and no banner sliding past the corner of your eye.</p>
+        </div>
+        <div class="person">
+          <span class="who">Setting it up for someone else</span>
+          <p class="said">“Set up one steady way of reading for someone I support.”</p>
+          <p>Build a profile once, export it as a small file, and hand it over. Nothing about the person goes in it.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SAFETY ===================== -->
+  <section class="band-pad-sm" aria-labelledby="h-safe">
+    <div class="wrap">
+      <div class="safety rise">
+        <p class="kicker">Fenced off</p>
+        <h2 id="h-safe" style="font-size:clamp(1.5rem,2.9vw,2.1rem)">Some things it will not touch.</h2>
+        <p style="max-width:var(--cp-measure);color:var(--text-secondary);margin:0">Rewriting is the risky part, so the risky places are fenced off. In these areas the Copilot does the visual and keyboard work only. It will not reword any of it unless you ask for that passage by name, and when you do, it shows the original next to the rewrite.</p>
+        <ul>
+          <li>Payment fields</li>
+          <li>Passwords and sign-in</li>
+          <li>Legal consent</li>
+          <li>Medication instructions</li>
+          <li>Emergency information</li>
+          <li>Anything you have typed</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FAQ ===================== -->
+  <section class="band-pad rule" aria-labelledby="h-faq">
+    <div class="wrap">
+      <div class="head rise">
+        <p class="kicker">Straight answers</p>
+        <h2 id="h-faq">Three questions people actually ask.</h2>
+      </div>
+      <div class="faq rise narrow">
+        <details>
+          <summary>Is this the same as those accessibility widgets on other sites?</summary>
+          <div class="answer"><p>No, and the difference is who it works for. A widget is bolted onto one site by that site's owner and speaks for every visitor at once. This is yours. It travels with you, it only does what you set, and when you switch it off it is off.</p></div>
+        </details>
+        <details>
+          <summary>Does it make a website meet accessibility standards?</summary>
+          <div class="answer"><p>No. It helps a person read a page. It does not repair the page and it does not make anyone compliant with anything. We hold our own work to WCAG 2.2 as a quality target and we claim nothing at all about the sites you visit.</p></div>
+        </details>
+        <details>
+          <summary>Where do my settings go?</summary>
+          <div class="answer"><p>Into your own browser and nowhere else. No account is needed, no page text is collected for training, and the delete button really deletes. If device sync ever arrives it will be something you switch on, never something already on.</p></div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CLOSING ===================== -->
+  <section class="band-pad-sm" aria-labelledby="h-cta" id="join">
+    <div class="wrap">
+      <div class="close-cta rise pulse">
+        <div>
+          <p class="kicker">The invitation</p>
+          <h2 id="h-cta">Choose how you want the web to work.</h2>
+          <p style="color:var(--text-secondary);max-width:50ch">Accessibility Copilot is a demo product for now. Leave an address and we will tell you when the closed beta opens. Or skip the list and go straight to the demo, which needs nothing from you at all.</p>
+          <p style="margin-top:1.2rem"><a class="btn btn-ghost" href="demo.html">Open the live demo</a></p>
+        </div>
+        <form data-demo-form novalidate>
+          <div class="form-fields">
+            <label class="field">
+              <span>Email</span>
+              <input type="email" name="email" autocomplete="email" required placeholder="you@example.com">
+            </label>
+            <label class="field">
+              <span>What would you change about a page first?</span>
+              <textarea name="why" rows="3" placeholder="Bigger text, mostly. And stop things moving."></textarea>
+            </label>
+            <button class="btn btn-primary" type="submit" style="width:100%">Join the beta list</button>
+            <p class="form-note">This is a demo site with no server behind it. Nothing is sent anywhere, and what you type here stays in this browser tab.</p>
+          </div>
+          <div class="form-done" hidden>
+            <p><strong>That is the honest version.</strong></p>
+            <p style="margin:0">Nothing was sent, because there is nowhere to send it. On the real product this is where a confirmation would arrive.</p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a class="brand" href="index.html">
+          <svg class="brand-mark" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 18.5 L12 5.5 L19.5 18.5 M8 13.5 H16"/></svg>
+          Accessibility Copilot
+        </a>
+        <p style="margin-top:.7rem;color:var(--text-secondary);font-size:.92rem;max-width:34ch">A personal reading layer for the web. One web, your way.</p>
+      </div>
+      <div>
+        <h3 class="foot-h">The product</h3>
+        <ul>
+          <li><a href="demo.html">Live demo</a></li>
+          <li><a href="profiles.html">Profiles</a></li>
+          <li><a href="how-it-works.html">How it works</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="foot-h">Trust</h3>
+        <ul>
+          <li><a href="privacy.html">Privacy</a></li>
+          <li><a href="how-it-works.html#limits">Known limits</a></li>
+          <li><a href="get-started.html">Get started</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="foot-h">Standards</h3>
+        <ul>
+          <li><a href="https://www.w3.org/TR/WCAG22/" rel="noopener">WCAG 2.2</a></li>
+          <li><a href="https://www.w3.org/TR/coga-usable/" rel="noopener">Making content usable</a></li>
+          <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion" rel="noopener">Reduced motion</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="foot-note"><span><strong>Accessibility Copilot is a demo product, built to show the idea.</strong> Nothing here ships to real users yet. No page on this site collects anything, no data leaves your browser, and every picture on it is drawn in code, so there are no photographs of anyone. The people described on this site are examples, not customers.</span></p>
+  </div>
+</footer>
+
+<script src="assets/js/queries.js" defer></script>
+<script src="assets/js/language.js" defer></script>
+<script src="assets/js/copilot.js" defer></script>
+<script src="assets/js/site.js" defer></script>
+<script src="assets/js/selection.js" defer></script>
+<script src="assets/js/hero.js" defer></script>
+</body>
+</html>

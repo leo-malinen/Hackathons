@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Live demo: Accessibility Copilot</title>
+<meta name="description" content="One sample page, six profiles, the same content and the same address throughout. Switch a profile and watch what changes, then put it all back.">
+<meta name="theme-color" content="#F3EFE5">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%23F3EFE5'/%3E%3Cpath d='M4.5 18.5 L12 5.5 L19.5 18.5 M8 13.5 H16' fill='none' stroke='%231B4FD8' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<!-- DEPLOY STEP: patch og:url and og:image with the live absolute URL -->
+<meta property="og:title" content="Live demo: Accessibility Copilot">
+<meta property="og:description" content="Switch profiles on one sample page and watch the same content transform. Then put it all back.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://REPLACE-AT-DEPLOY/demo.html">
+<meta property="og:image" content="https://REPLACE-AT-DEPLOY/assets/img/og.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,600;12..96,75..100,800&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="assets/css/site.css">
+<link rel="stylesheet" href="assets/css/copilot.css">
+<link rel="stylesheet" href="assets/css/demo.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to the content</a>
+<div class="paper" aria-hidden="true"></div>
+<div class="spine" aria-hidden="true"></div>
+
+<nav class="nav" aria-label="Main">
+  <div class="wrap nav-in">
+    <a class="brand" href="index.html">
+      <svg class="brand-mark" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 18.5 L12 5.5 L19.5 18.5 M8 13.5 H16"/></svg>
+      Accessibility Copilot
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links">Menu</button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="demo.html" aria-current="page">Live demo</a></li>
+      <li><a href="profiles.html">Profiles</a></li>
+      <li><a href="how-it-works.html">How it works</a></li>
+      <li><a href="privacy.html">Privacy</a></li>
+      <li class="nav-cta"><a class="btn btn-primary btn-sm" href="get-started.html">Get started</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main id="main" tabindex="-1">
+
+  <section class="band-pad-sm">
+    <div class="wrap">
+      <div class="head head-split rise">
+        <div>
+          <p class="kicker">Live demo</p>
+          <h1>One page. Six ways to read it.</h1>
+        </div>
+        <p class="lede">Below is an ordinary council website. Nothing about it changes: same words, same links, same address in the bar. Pick a profile on the right and watch how it is presented. Then press Restore original and every change comes off at once. The sample is built with the faults real council sites ship, on purpose, so <strong>Still in your way</strong> in the panel has something honest to find.</p>
+      </div>
+      <p class="form-note" style="margin-top:1rem;max-width:88ch"><strong>Select any sentence on this page</strong> and a small bar offers to put it in plain words or explain what it means. That one is a real rewrite rather than a prepared answer, so it needs a key of your own, under Language in the panel. Without a key it stays off and nothing leaves your device.</p>
+    </div>
+  </section>
+
+  <section class="band-pad-sm" style="padding-top:0" aria-labelledby="h-demo">
+    <div class="wrap">
+      <h2 id="h-demo" class="vh">The sample page and its controls</h2>
+      <div class="demo-shell">
+
+        <!-- =============== THE SAMPLE PAGE =============== -->
+        <div class="sample-frame rise">
+          <div class="sample-chrome">
+            <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span class="addr">riverside.gov.example/parking</span>
+            <span class="badge" id="frame-badge">original</span>
+          </div>
+
+          <div id="sample">
+            <a class="s-skip" href="#s-main">Skip to content</a>
+
+            <nav class="s-nav" aria-label="Riverside Council">
+              <strong>Riverside Council</strong>
+              <ul>
+                <li><a href="#s-main">Home</a></li>
+                <li><a href="#s-main">Services</a></li>
+                <li><a href="#s-main">News</a></li>
+                <li><a href="#s-main">Contact</a></li>
+              </ul>
+            </nav>
+
+            <div class="s-promo" data-changed="motion" aria-hidden="true">
+              <span>Bin collections move to Wednesday from the 4th &nbsp;·&nbsp; Library late opening every Thursday &nbsp;·&nbsp; Report a pothole online in two minutes &nbsp;·&nbsp; Bin collections move to Wednesday from the 4th &nbsp;·&nbsp; Library late opening every Thursday &nbsp;·&nbsp; Report a pothole online in two minutes &nbsp;·&nbsp;</span>
+            </div>
+
+            <main id="s-main" class="s-wrap">
+              <div style="padding-top:1.2rem">
+                <h1 data-lvl="H1">Residents' parking: the new scheme</h1>
+                <p style="color:var(--s-mute);font-size:.82rem;margin-bottom:1rem">Published 26 August · Parking and streets</p>
+              </div>
+
+              <div data-changed="type" class="pair">
+                <div class="s-orig">
+                  <span class="tagline">Original</span>
+                  <p>The council has published the new residents' parking scheme and is inviting representations from affected households, which must be received no later than the final day of the current month, whether submitted in writing to the address printed on the notice or via the online representation form.</p>
+                  <p>Households presently in possession of a valid permit are not required to submit a further application, notwithstanding which the council requests that all permit holders verify that the particulars held on record remain accurate.</p>
+                </div>
+                <div class="s-plain">
+                  <span class="tagline">Plain language</span>
+                  <p>The council has published the new parking scheme. If it affects you, tell them what you think by the end of this month. You can write to the address on the notice or use the form on this site.</p>
+                  <p>Already have a permit? You do not need to apply again. The council does ask you to check that your details are still right.
+                    <span class="caveat">A rewrite can drop detail. Press below to read the original wording.</span>
+                  </p>
+                  <button type="button" class="s-orig-btn" data-orig-toggle>Show the original wording</button>
+                </div>
+              </div>
+
+              <div class="s-grid">
+                <div>
+                  <h2 data-lvl="H2 · 1">Apply for a permit</h2>
+                  <ul class="s-steps" data-changed="structure">
+                    <li class="s-step" data-state="now" data-step="1">
+                      <span class="no" aria-hidden="true">1</span>
+                      <div>
+                        <span class="lbl">Step one</span>
+                        <p>Check your street is in a controlled zone.</p>
+                      </div>
+                    </li>
+                    <li class="s-step" data-step="2">
+                      <span class="no" aria-hidden="true">2</span>
+                      <div>
+                        <span class="lbl">Step two</span>
+                        <p>Enter your address and vehicle details.</p>
+                      </div>
+                    </li>
+                    <li class="s-step" data-step="3">
+                      <span class="no" aria-hidden="true">3</span>
+                      <div>
+                        <span class="lbl">Step three</span>
+                        <p>Confirm and pay the annual charge.</p>
+                      </div>
+                    </li>
+                  </ul>
+                  <p style="display:flex;gap:.5rem;flex-wrap:wrap">
+                    <button type="button" class="s-btn" data-step-next>Complete this step</button>
+                    <button type="button" class="s-btn ghost" data-step-reset>Start the task again</button>
+                  </p>
+                  <p id="step-say" role="status" style="font-size:.82rem;color:var(--s-mute);min-height:1.4em">Step one of three.</p>
+                </div>
+
+                <aside>
+                  <h2 data-lvl="H2 · 2">Zones and charges</h2>
+                  <div class="s-card" data-changed="colour">
+                    <table>
+                      <caption class="vh">Permit charges by zone</caption>
+                      <thead>
+                        <tr><th scope="col">Zone</th><th scope="col">Streets</th><th scope="col">Per year</th></tr>
+                      </thead>
+                      <tbody>
+                        <tr><td>A</td><td>Mill, Quay, Bridge</td><td>£64</td></tr>
+                        <tr><td>B</td><td>Elm, Fern, Hollow</td><td>£58</td></tr>
+                        <tr><td>C</td><td>Station approach</td><td>£81</td></tr>
+                        <tr><td>D</td><td>Riverside north</td><td>£47</td></tr>
+                      </tbody>
+                    </table>
+                    <p style="margin:.7rem 0 0;font-size:.78rem;color:var(--s-mute)">Second vehicles are charged at half the zone rate.</p>
+                  </div>
+                </aside>
+              </div>
+
+              <h2 data-lvl="H2 · 3" style="margin-top:1.4rem">The controlled zones</h2>
+              <svg class="s-art dimmable" viewBox="0 0 640 220" role="img" aria-label="A simplified map of the four controlled parking zones along the river">
+                <rect width="640" height="220" fill="#EDF1EE"/>
+                <path d="M0 168 C120 150 180 186 300 172 C420 158 520 190 640 174 L640 220 L0 220 Z" fill="#BBD3E6"/>
+                <g fill="#D7E0D9" stroke="#B9C7BE">
+                  <rect x="34" y="42" width="118" height="70" rx="4"/>
+                  <rect x="176" y="30" width="140" height="84" rx="4"/>
+                  <rect x="340" y="48" width="112" height="66" rx="4"/>
+                  <rect x="476" y="34" width="130" height="80" rx="4"/>
+                </g>
+                <g fill="#134A3C" font-family="Georgia,serif" font-size="17">
+                  <text x="82" y="84">A</text><text x="238" y="80">B</text><text x="388" y="88">C</text><text x="532" y="82">D</text>
+                </g>
+                <g stroke="#9AAA9F" stroke-width="2">
+                  <line x1="0" y1="128" x2="640" y2="128"/><line x1="164" y1="20" x2="164" y2="128"/>
+                  <line x1="328" y1="20" x2="328" y2="128"/><line x1="464" y1="20" x2="464" y2="128"/>
+                </g>
+              </svg>
+
+              <!-- Deliberately built the way real council sites are built. Every
+                   fault below is on purpose, and the Copilot panel finds them. -->
+              <h2 data-lvl="H2 · 4" style="margin-top:1.5rem">Latest from the council</h2>
+              <div class="s-news">
+                <div class="s-newsrow">
+                  <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='6' fill='%23134A3C'/%3E%3Cpath d='M32 14 L46 24 V44 H18 V24 Z' fill='none' stroke='%23DCE9E4' stroke-width='3'/%3E%3Cpath d='M26 44 V32 h12 v12' fill='none' stroke='%23DCE9E4' stroke-width='3'/%3E%3C/svg%3E" width="52" height="52">
+                  <div>
+                    <h4 data-lvl="H4 · skipped H3">Bin collections move to Wednesday</h4>
+                    <p>From the fourth of next month, kerbside collections across the north of the borough move a day later.</p>
+                    <p style="margin:0"><a href="#s-main">Read more</a></p>
+                  </div>
+                </div>
+                <div class="s-newsrow">
+                  <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='6' fill='%232E5C74'/%3E%3Ccircle cx='32' cy='26' r='9' fill='none' stroke='%23DCE9E4' stroke-width='3'/%3E%3Cpath d='M16 48c4-9 28-9 32 0' fill='none' stroke='%23DCE9E4' stroke-width='3'/%3E%3C/svg%3E" width="52" height="52">
+                  <div>
+                    <h4 data-lvl="H4 · skipped H3">Library late opening every Thursday</h4>
+                    <p>The central library now stays open until eight on Thursday evenings, including the study rooms.</p>
+                    <p style="margin:0"><a href="#s-main">Read more</a></p>
+                  </div>
+                </div>
+                <form class="s-search" onsubmit="return false">
+                  <input type="text" placeholder="Search the site">
+                  <button type="submit" class="s-iconbtn">
+                    <svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M13 13 L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                  </button>
+                </form>
+                <p class="s-smallprint">Information on this page is provided for guidance only and does not constitute a determination of eligibility.</p>
+              </div>
+
+              <div class="s-grid" style="margin-top:1.4rem">
+                <form data-demo-form novalidate>
+                  <h2 data-lvl="H2 · 5">Tell the council what you think</h2>
+                  <div class="form-fields">
+                    <label class="s-field"><span>Your name</span><input type="text" name="name" autocomplete="name"></label>
+                    <label class="s-field"><span>Your street</span><input type="text" name="street" autocomplete="address-line1"></label>
+                    <label class="s-field"><span>Vehicle registration</span><input type="text" name="reg"></label>
+                    <button type="submit" class="s-btn">Send my response</button>
+                  </div>
+                  <div class="form-done" hidden style="margin-top:.6rem">
+                    <p style="margin:0"><strong>Nothing was sent.</strong> This is a sample page inside a demo. The Copilot never reads or changes what you type into a form.</p>
+                  </div>
+                </form>
+
+                <div>
+                  <div class="s-fenced">
+                    <span class="flag">Fenced off · visual help only</span>
+                    <p style="margin:0 0 .6rem;font-size:.85rem">Pay the annual charge to complete your application. Do not share your card details with anyone who telephones you about this scheme.</p>
+                    <label class="s-field"><span>Card number</span><input type="text" inputmode="numeric" placeholder="•••• •••• •••• ••••" disabled></label>
+                    <p style="margin:0;font-size:.76rem;color:var(--s-mute)">The Copilot will not reword payment, password, legal, medical, or emergency text without you asking for that passage by name.</p>
+                  </div>
+                  <button type="button" class="s-btn ghost" data-open-modal>Check my details</button>
+                </div>
+              </div>
+            </main>
+
+            <div class="s-modal" id="s-modal" hidden role="dialog" aria-modal="true" aria-labelledby="s-modal-h">
+              <div class="box">
+                <h2 id="s-modal-h" data-lvl="H2 · 6">Check your details</h2>
+                <p style="font-size:.88rem">We hold this address for your permit. Is it still correct?</p>
+                <p style="font-size:.88rem;font-weight:700;margin-bottom:0">14 Mill Street, Riverside, RV2 8QL</p>
+                <div class="row">
+                  <button type="button" class="s-btn" data-close-modal>Yes, that is right</button>
+                  <button type="button" class="s-btn ghost" data-close-modal>No, I will update it</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="s-ruler" hidden aria-hidden="true"></div>
+        </div>
+
+        <!-- =============== THE CONTROLS =============== -->
+        <div class="demo-panel rise">
+          <h2>Reading this page as <span class="n" id="active-name">yourself</span></h2>
+
+          <div class="demo-sec">
+            <h3>Profiles</h3>
+            <ul class="demo-profiles" id="demo-profiles"></ul>
+          </div>
+
+          <div class="demo-sec">
+            <h3>What changed</h3>
+            <ul class="demo-log" id="demo-log"></ul>
+            <p class="cp-empty" id="demo-empty">Nothing is changed. The page is exactly as the council published it.</p>
+          </div>
+
+          <div class="demo-sec">
+            <h3>Still in your way</h3>
+            <div class="cp-queries" id="demo-queries"></div>
+            <button type="button" class="btn btn-ghost btn-sm" id="demo-rescan" style="width:100%;margin-top:.55rem">Look again</button>
+          </div>
+
+          <div class="demo-sec">
+            <h3>Controls</h3>
+            <div class="demo-actions">
+              <button type="button" class="btn btn-ghost btn-sm" id="demo-marks" aria-pressed="false">Show changes</button>
+              <button type="button" class="btn btn-primary btn-sm" id="demo-restore">Restore original</button>
+            </div>
+            <p class="form-note" style="margin-top:.7rem">Show changes draws a mark beside every region the Copilot touched. Restore original puts the page back exactly as it was, in one press.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="band-pad rule" aria-labelledby="h-read">
+    <div class="wrap">
+      <div class="head head-center rise">
+        <p class="kicker">How to read what you just saw</p>
+        <h2 id="h-read">The three kinds of change.</h2>
+        <p class="lede">People often mistake a transformed page for a redesigned one. These are three different things, and the Copilot keeps them apart on purpose.</p>
+      </div>
+      <div class="grid g-3 stagger">
+        <div class="card">
+          <p class="kicker">One</p>
+          <h3>How it looks</h3>
+          <p style="color:var(--text-secondary);font-size:.95rem">Size, spacing, colour, contrast, and movement. These are style changes only. Not one word of the page is different, and nothing is added or removed.</p>
+        </div>
+        <div class="card">
+          <p class="kicker">Two</p>
+          <h3>How it reads</h3>
+          <p style="color:var(--text-secondary);font-size:.95rem">A plain-language version of a passage, shown with the original beside it and a note that a rewrite can drop detail. This one is never automatic.</p>
+        </div>
+        <div class="card">
+          <p class="kicker">Three</p>
+          <h3>How it is built</h3>
+          <p style="color:var(--text-secondary);font-size:.95rem">A skip link, numbered headings, drawn regions, a stronger focus ring. Help for keyboards and screen readers. It never moves a control, because moving one can change what a task means.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band-pad-sm">
+    <div class="wrap">
+      <div class="close-cta rise pulse">
+        <div>
+          <p class="kicker">Next</p>
+          <h2>Now do it to this site.</h2>
+          <p style="color:var(--text-secondary);max-width:52ch">The panel at the bottom right of every page here is the same engine, pointed at this site instead of the sample. Open it and change something. The change log will tell you exactly what it did.</p>
+        </div>
+        <div>
+          <p style="margin-bottom:1rem"><a class="btn btn-primary" href="profiles.html">Build your own profile</a></p>
+          <p style="margin:0"><a class="btn btn-ghost" href="how-it-works.html">See how it works underneath</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a class="brand" href="index.html">
+          <svg class="brand-mark" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 18.5 L12 5.5 L19.5 18.5 M8 13.5 H16"/></svg>
+          Accessibility Copilot
+        </a>
+        <p style="margin-top:.7rem;color:var(--text-secondary);font-size:.92rem;max-width:34ch">A personal reading layer for the web. One web, your way.</p>
+      </div>
+      <div>
+        <h3 class="foot-h">The product</h3>
+        <ul>
+          <li><a href="demo.html">Live demo</a></li>
+          <li><a href="profiles.html">Profiles</a></li>
+          <li><a href="how-it-works.html">How it works</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="foot-h">Trust</h3>
+        <ul>
+          <li><a href="privacy.html">Privacy</a></li>
+          <li><a href="how-it-works.html#limits">Known limits</a></li>
+          <li><a href="get-started.html">Get started</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="foot-h">Standards</h3>
+        <ul>
+          <li><a href="https://www.w3.org/TR/WCAG22/" rel="noopener">WCAG 2.2</a></li>
+          <li><a href="https://www.w3.org/TR/coga-usable/" rel="noopener">Making content usable</a></li>
+          <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion" rel="noopener">Reduced motion</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="foot-note"><span><strong>Riverside Council is invented, and so is everything on the sample page.</strong> The address in the bar goes nowhere, the charges are made up, and the map is drawn by hand. Accessibility Copilot itself is a demo product, built to show the idea.</span></p>
+  </div>
+</footer>
+
+<script src="assets/js/queries.js" defer></script>
+<script src="assets/js/language.js" defer></script>
+<script src="assets/js/copilot.js" defer></script>
+<script src="assets/js/site.js" defer></script>
+<script src="assets/js/selection.js" defer></script>
+<script src="assets/js/demo.js" defer></script>
+</body>
+</html>
