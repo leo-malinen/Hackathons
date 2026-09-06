@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script>document.documentElement.className += ' js';</script>
+  <title>From Concept to Pilot · Bridge</title>
+  <meta name="description" content="A four-phase roadmap, the operational and regulatory requirements a real Bridge would need, six named risks with mitigations, privacy principles and accessibility commitments.">
+  <meta name="theme-color" content="#0D1420">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%227%22%20fill%3D%22%230D1420%22%2F%3E%3Cpath%20d%3D%22M5%2021Q16%206%2027%2021%22%20fill%3D%22none%22%20stroke%3D%22%23FF7D5E%22%20stroke-width%3D%222.8%22%20stroke-linecap%3D%22round%22%2F%3E%3Cpath%20d%3D%22M5%2021v5M27%2021v5%22%20stroke%3D%22%238797AE%22%20stroke-width%3D%222.2%22%20stroke-linecap%3D%22round%22%2F%3E%3C%2Fsvg%3E">
+  <meta property="og:title" content="From Concept to Pilot · Bridge">
+  <meta property="og:description" content="A four-phase roadmap, the operational and regulatory requirements a real Bridge would need, six named risks with mitigations, privacy principles and accessibility commitments.">
+  <meta property="og:type" content="website">
+  <!-- DEPLOY STEP: patch og:url and og:image with the live absolute URL at deploy time -->
+  <meta property="og:url" content="">
+  <meta property="og:image" content="">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=IBM+Plex+Mono:wght@400;500&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/bridge.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="env" aria-hidden="true"></div>
+  <nav class="nav" aria-label="Primary">
+    <div class="nav-in">
+      <a class="brand" href="index.html"><svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path d="M3 21.5Q16 3.5 29 21.5" fill="none" stroke="#FF7D5E" stroke-width="3" stroke-linecap="round"/><path d="M3 21.5v7M29 21.5v7" stroke="#8797AE" stroke-width="2.4" stroke-linecap="round"/><path d="M2 25.5h28" stroke="#8797AE" stroke-width="1.3" opacity=".45"/></svg><span>Bridge</span></a>
+      <button class="navtoggle" type="button" aria-expanded="false" aria-controls="navlinks">Menu</button>
+      <div class="nav-links" id="navlinks">
+        <div class="navgroup">
+          <button class="navtrigger" type="button" aria-expanded="false" aria-controls="ng-problem">Problem<svg class="caret" viewBox="0 0 10 6" aria-hidden="true" focusable="false"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <div class="navmenu" id="ng-problem">
+            <a href="problem.html"><span class="nm-t">The Financial Shock</span><span class="nm-d">What an unexpected expense actually costs</span></a>
+            <a href="research.html"><span class="nm-t">Research and Sources</span><span class="nm-d">Sourced evidence, every figure linked</span></a>
+          </div>
+        </div>
+        <div class="navgroup">
+          <button class="navtrigger" type="button" aria-expanded="false" aria-controls="ng-solution">Solution<svg class="caret" viewBox="0 0 10 6" aria-hidden="true" focusable="false"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <div class="navmenu" id="ng-solution">
+            <a href="solution.html"><span class="nm-t">Meet Bridge</span><span class="nm-d">The eight-step journey and the guardrails</span></a>
+            <a href="recovery.html"><span class="nm-t">The Recovery Journey</span><span class="nm-d">One scenario, followed all the way through</span></a>
+          </div>
+        </div>
+        <div class="navgroup">
+          <button class="navtrigger" type="button" aria-expanded="false" aria-controls="ng-product">Product<svg class="caret" viewBox="0 0 10 6" aria-hidden="true" focusable="false"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <div class="navmenu" id="ng-product">
+            <a href="simulator.html"><span class="nm-t">Shock Simulator</span><span class="nm-d">Move four numbers, watch the trajectory change</span></a>
+            <a href="dashboard.html"><span class="nm-t">Resilience Dashboard</span><span class="nm-d">What the person and the partner each see</span></a>
+          </div>
+        </div>
+        <div class="navgroup here">
+          <button class="navtrigger" type="button" aria-expanded="false" aria-controls="ng-business" aria-current="true">Business<svg class="caret" viewBox="0 0 10 6" aria-hidden="true" focusable="false"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <div class="navmenu" id="ng-business">
+            <a href="business.html"><span class="nm-t">Business Model</span><span class="nm-d">Who pays, and the illustrative program model</span></a>
+            <a href="impact.html"><span class="nm-t">Impact</span><span class="nm-d">Outcome-based measurement, not vanity metrics</span></a>
+            <a href="implementation.html" aria-current="page"><span class="nm-t">Implementation</span><span class="nm-d">Roadmap, operations, risks, compliance</span></a>
+          </div>
+        </div>
+        <div class="navgroup">
+          <button class="navtrigger" type="button" aria-expanded="false" aria-controls="ng-vision">Vision<svg class="caret" viewBox="0 0 10 6" aria-hidden="true" focusable="false"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <div class="navmenu" id="ng-vision">
+            <a href="vision.html"><span class="nm-t">The Future</span><span class="nm-d">Where Bridge goes, and what would have to be true</span></a>
+            <a href="deck.html"><span class="nm-t">Presentation Deck</span><span class="nm-d">The whole argument in twelve slides</span></a>
+          </div>
+        </div>
+      </div>
+      <button class="btn btn-primary btn-sm nav-cta judge-btn" type="button" data-judge-open>Judge Mode</button>
+    </div>
+  </nav>
+  <main id="main" tabindex="-1">
+    <section class="pagehead">
+      <div class="wrap">
+        <div class="rev">
+          <p class="kicker">From concept to pilot</p>
+          <h1>What would actually have to be true.</h1>
+          <p class="lede">Bridge is a concept. This page is the honest list of everything between the concept
+            and a working pilot, including the parts that are difficult.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="band-tight" aria-labelledby="road-h">
+      <div class="wrap">
+        <div class="hd rev">
+          <p class="kicker">Roadmap</p>
+          <h2 id="road-h">Four phases, twelve months to a decision.</h2>
+        </div>
+        <div class="phases">
+          <div class="phase"><span class="ph">Phase one</span><span class="wh">0 to 3 months</span>
+            <h3 class="ch">Research</h3>
+            <ul><li>User research with people who have recently absorbed a shock</li>
+              <li>Financial behaviour research</li><li>Partner discovery across employers, universities and nonprofits</li>
+              <li>Regulatory analysis by jurisdiction</li><li>Product design</li><li>Risk assessment</li></ul></div>
+          <div class="phase"><span class="ph">Phase two</span><span class="wh">3 to 6 months</span>
+            <h3 class="ch">Pilot</h3>
+            <ul><li>One employer, one university, one nonprofit</li><li>Deliberately small and closely watched</li>
+              <li>Measure adoption and user experience</li><li>Measure recovery and repayment</li>
+              <li>Measure savings rebuilding</li><li>Measure the real operational cost per case</li></ul></div>
+          <div class="phase"><span class="ph">Phase three</span><span class="wh">6 to 12 months</span>
+            <h3 class="ch">Optimisation</h3>
+            <ul><li>Refine eligibility against what the pilot showed</li><li>Adjust the support structure</li>
+              <li>Rework the participant experience</li><li>Strengthen risk management</li>
+              <li>Simplify partner workflows</li><li>Harden impact measurement</li></ul></div>
+          <div class="phase"><span class="ph">Phase four</span><span class="wh">12 months and beyond</span>
+            <h3 class="ch">Expansion</h3>
+            <ul><li>More employers</li><li>More universities</li><li>Nonprofit networks</li>
+              <li>Financial institutions</li><li>Community programs</li>
+              <li>Only where the outcome measures held up</li></ul></div>
+        </div>
+        <p class="disclaimer mt-l">Phase two is the phase that decides everything. A pilot that produces good
+          repayment and poor savings rebuilding would mean Bridge had built a small loan product with extra
+          steps, and that would be worth knowing early.</p>
+      </div>
+    </section>
+
+    <section class="band deep" aria-labelledby="ops-h">
+      <div class="wrap">
+        <div class="hd rev">
+          <p class="kicker">Operational requirements</p>
+          <h2 id="ops-h">Six things a real Bridge would need before day one.</h2>
+        </div>
+        <div class="grid g3 mt-l stag">
+          <div class="card"><h3 class="ch">A financial partner</h3><p class="disclaimer">Appropriate regulated financial
+            infrastructure. Bridge would not hold or move money on its own account. The partner carries the
+            licences, and the product is designed around what they can actually do.</p></div>
+          <div class="card"><h3 class="ch">Compliance review</h3><p class="disclaimer">Lending, payments, consumer
+            protection, privacy, fair lending, disclosure, and both state and federal requirements. Reviewed by
+            jurisdiction, not assumed to transfer.</p></div>
+          <div class="card"><h3 class="ch">Security</h3><p class="disclaimer">Protection of financial and personal data,
+            with the controls in place before any participant data exists rather than after.</p></div>
+          <div class="card"><h3 class="ch">Fraud prevention</h3><p class="disclaimer">Identity and transaction controls
+            proportionate to the amounts involved, designed so they do not exclude the people the program is
+            for.</p></div>
+          <div class="card"><h3 class="ch">Customer support</h3><p class="disclaimer">Human support for complex and
+            vulnerable situations. Some of the cases this product will meet cannot be handled by a screen, and
+            pretending otherwise would be the failure mode.</p></div>
+          <div class="card"><h3 class="ch">Impact measurement</h3><p class="disclaimer">A reliable framework in place
+            before the pilot starts, so outcomes are measured rather than reconstructed afterwards.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="band warm" aria-labelledby="risk-h">
+      <div class="wrap">
+        <div class="hd rev">
+          <p class="kicker">Risk analysis</p>
+          <h2 id="risk-h">Six ways this could go wrong.</h2>
+          <p class="lede mt-s">Named plainly, with the mitigation next to each one. A risk register that only
+            lists comfortable risks is not a risk register.</p>
+        </div>
+        <div class="tablewrap mt-l rev">
+          <table>
+            <caption class="sr-only">Risks and mitigations for a Bridge implementation</caption>
+            <thead><tr><th scope="col">Risk</th><th scope="col">What could happen</th><th scope="col">Mitigation</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Over-borrowing</th>
+                <td class="w-out">People treat Bridge as a recurring source of money rather than as emergency
+                  support, and the product becomes the problem it was built to prevent.</td>
+                <td class="w-in">Affordability limits, emergency-use limits, recovery monitoring, savings
+                  pathways, and repeat use that triggers review and human contact instead of a larger limit.</td></tr>
+              <tr><th scope="row">Fraud</th>
+                <td class="w-out">False emergencies drain program capital that was meant for real ones.</td>
+                <td class="w-in">Identity verification, transaction controls, and delivery through
+                  organisations with an existing relationship to the participant.</td></tr>
+              <tr><th scope="row">Regulatory complexity</th>
+                <td class="w-out">Small-dollar credit is heavily regulated, and the rules differ by state and
+                  by country.</td>
+                <td class="w-in">Regulated financial partners, jurisdiction-specific legal review, and a
+                  deliberately narrow first pilot.</td></tr>
+              <tr><th scope="row">Insufficient funding</th>
+                <td class="w-out">Demand exceeds the fund and people who qualify are turned away.</td>
+                <td class="w-in">Institutional funding pools, diversified sponsors, published program limits,
+                  transparent eligibility, and recovered capital returning to the pool.</td></tr>
+              <tr><th scope="row">Low adoption</th>
+                <td class="w-out">The program exists and nobody knows about it. Research on student basic needs
+                  found most students were unaware of the supports available to them.</td>
+                <td class="w-in">Distribution through trusted organisations, surfaced at the moment of need
+                  rather than in an onboarding pack.</td></tr>
+              <tr><th scope="row">Inability to repay</th>
+                <td class="w-out">Some participants still lack the capacity to repay, and a recovery plan
+                  becomes another obligation they cannot meet.</td>
+                <td class="w-in">Affordability assessment before support, conservative support amounts,
+                  hardship pathways, and referral rather than lending where the numbers do not work.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="disclaimer mt-s">The adoption figure is from The Hope Center's 2023 to 2024 Student Basic
+          Needs Survey. Full citation on the <a href="research.html">research page</a>.</p>
+      </div>
+    </section>
+
+    <section class="band" aria-labelledby="priv-h">
+      <div class="wrap">
+        <div class="split">
+          <div class="rev">
+            <p class="kicker">Privacy by design</p>
+            <h2 id="priv-h">Five commitments about data.</h2>
+            <p class="lede mt-s">A product that asks about someone's worst financial month has to be careful
+              with the answer.</p>
+            <ul class="ticks mt-s">
+              <li><strong>Collect less.</strong> Only what the service actually needs to work.</li>
+              <li><strong>Explain.</strong> Say why each piece of information is being asked for, at the point
+                it is asked.</li>
+              <li><strong>Protect.</strong> Secure financial information as the default, not as a setting.</li>
+              <li><strong>Control.</strong> Give people visibility into what is held about them and what it is
+                used for.</li>
+              <li><strong>Never exploit.</strong> Do not sell sensitive financial information. Not to
+                advertisers, not to data brokers, not as a growth strategy.</li>
+            </ul>
+          </div>
+          <div class="rev">
+            <p class="kicker">Accessibility</p>
+            <h2>Built to be usable under stress.</h2>
+            <p class="lede mt-s">People arrive at this product on a bad day, often on a phone, sometimes on a
+              slow connection. That is the design condition, not the edge case.</p>
+            <ul class="ticks mt-s">
+              <li>Full keyboard navigation with visible focus states throughout</li>
+              <li>Screen reader support through real landmarks, headings and labels</li>
+              <li>Text and interface contrast measured against the canvas rather than estimated</li>
+              <li>Reduced-motion preferences honoured, live and in both directions</li>
+              <li>Accessible form labels and thumb-sized controls on touch devices</li>
+              <li>Financial information never depends on colour alone. Every state carries a word as well</li>
+              <li>Responsive layouts with no horizontal scrolling, and the simulator built to work on a phone</li>
+            </ul>
+          </div>
+        </div>
+        <div class="note mt-l rev">
+          <p><strong>The standing disclaimer.</strong> Bridge is a concept product. Any real implementation
+            would require appropriate financial, legal, regulatory, compliance, consumer protection, privacy
+            and risk review before a single participant used it.</p>
+        </div>
+        <div class="next">
+          <div><span class="lbl">Next</span><h3>Where this goes if it works.</h3></div>
+          <a class="btn btn-primary" href="vision.html">The vision</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <div>
+          <a class="brand" href="index.html"><svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path d="M3 21.5Q16 3.5 29 21.5" fill="none" stroke="#FF7D5E" stroke-width="3" stroke-linecap="round"/><path d="M3 21.5v7M29 21.5v7" stroke="#8797AE" stroke-width="2.4" stroke-linecap="round"/><path d="M2 25.5h28" stroke="#8797AE" stroke-width="1.3" opacity=".45"/></svg><span>Bridge</span></a>
+          <p style="margin-top:16px;font-size:.9rem;color:var(--text-2);max-width:38ch">
+            Financial resilience, built for real life. A concept entry to the Graphiques Innovation
+            Challenge under the Finance and FinTech theme, with Social Impact and Business as
+            secondary themes.
+          </p>
+          <p class="chain">Emergency &rarr; Recovery &rarr; Resilience</p>
+        </div>
+        <div>
+          <h4>Product</h4>
+          <ul>
+            <li><a href="solution.html">Meet Bridge</a></li>
+            <li><a href="simulator.html">Shock Simulator</a></li>
+            <li><a href="dashboard.html">Resilience Dashboard</a></li>
+            <li><a href="recovery.html">Recovery Journey</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Organisation</h4>
+          <ul>
+            <li><a href="business.html">Business Model</a></li>
+            <li><a href="impact.html">Impact</a></li>
+            <li><a href="implementation.html">Implementation</a></li>
+            <li><a href="deck.html">Presentation Deck</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Evidence</h4>
+          <ul>
+            <li><a href="problem.html">The Financial Shock</a></li>
+            <li><a href="research.html">Research and Sources</a></li>
+            <li><a href="vision.html">The Vision</a></li>
+            <li><button class="foot-judge" type="button" data-judge-open>Judge Mode</button></li>
+          </ul>
+        </div>
+      </div>
+      <div class="foot-bottom">
+        <p>
+          Bridge is a concept designed and submitted for the Graphiques Innovation Challenge. It is a proposal,
+          not a product: it is not a live financial service, it does not lend money, it has no users, partners or
+          revenue, and nothing here is financial advice. The Bridge Resilience Profile is a conceptual product
+          framework for financial resilience planning. It is not a credit score and does not represent a lending
+          decision. Every scenario, dashboard and pilot figure on this site is clearly labelled as illustrative.
+          External statistics carry a named source, a year and a link. Any real implementation would require
+          appropriate financial, legal, regulatory, compliance, consumer protection, privacy and risk review.
+        </p>
+        <p class="chain">Graphiques Innovation Challenge &middot; 2026</p>
+      </div>
+    </div>
+  </footer>
+  <div class="jm" id="judge" role="dialog" aria-modal="true" aria-label="Judge Mode, a guided 90 second walkthrough" aria-hidden="true">
+    <div class="jm-bar"><i></i></div>
+    <div class="jm-top">
+      <span class="lbl">Judge Mode</span>
+      <span class="clock">0:00 / 1:30</span>
+      <span class="sp">
+        <button class="btn btn-ghost btn-sm" type="button" data-jm="prev">Back</button>
+        <button class="btn btn-ghost btn-sm" type="button" data-jm="play">Pause</button>
+        <button class="btn btn-ghost btn-sm" type="button" data-jm="next">Next</button>
+        <button class="btn btn-primary btn-sm" type="button" data-jm="close">Close</button>
+      </span>
+    </div>
+    <div class="jm-body">
+      <article class="jm-slide on" id="jm-0">
+        <p class="kicker">0 to 15 seconds &middot; The problem</p>
+        <h2>An $850 repair is not an $850 problem.</h2>
+        <p class="lede">A person with steady income and $650 saved can absorb the expense eventually. Paying it today empties the buffer and leaves a gap. What fills that gap decides the next twelve months.</p>
+        <div class="jm-figs"><div class="stat"><span class="figure">37%</span><p class="claim">of US adults could not cover a $400 emergency expense with cash or its equivalent</p><span class="src">Federal Reserve, SHED 2025</span></div><div class="stat"><span class="figure">391%</span><p class="claim">annual rate on a median storefront payday loan of $15 per $100 over 14 days</p><span class="src">CFPB research</span></div><div class="stat"><span class="figure">$35</span><p class="claim">median overdraft fee at large US institutions</p><span class="src">CFPB, 2023</span></div></div>
+        <div class="btn-row"><a class="btn btn-ghost btn-sm" href="problem.html">Read the problem</a></div>
+      </article>
+      <article class="jm-slide" id="jm-1">
+        <p class="kicker">15 to 30 seconds &middot; The simulator</p>
+        <h2>Move four numbers. Watch the trajectory change.</h2>
+        <p class="lede">Income, savings, essential expenses, and the size of the shock. The simulator sizes the gap, reads the pressure without support, and builds an illustrative recovery plan that fits what the person can actually afford.</p>
+        <div class="jm-figs"><div class="stat"><span class="figure">$850</span><p class="claim">unexpected expense in the illustrative scenario</p><span class="src">Illustrative</span></div><div class="stat"><span class="figure">$650</span><p class="claim">savings available before the shock</p><span class="src">Illustrative</span></div><div class="stat"><span class="figure">$200</span><p class="claim">immediate gap left over</p><span class="src">Illustrative</span></div></div>
+        <div class="btn-row"><a class="btn btn-ghost btn-sm" href="simulator.html">Open the simulator</a></div>
+      </article>
+      <article class="jm-slide" id="jm-2">
+        <p class="kicker">30 to 45 seconds &middot; The intervention</p>
+        <h2>Most financial products help people transact. Bridge is designed to help people recover.</h2>
+        <p class="lede">Traditional credit asks whether a person can repay. Bridge adds a second question: what would help this person recover? That question changes the product from a loan into a recovery plan with support attached.</p>
+        <div class="jm-figs"><div class="stat"><span class="figure">8 steps</span><p class="claim">identify, understand, assess, plan, support, recover, rebuild, strengthen</p><span class="src">The Bridge journey</span></div><div class="stat"><span class="figure">6 dimensions</span><p class="claim">the conceptual Resilience Profile, which is not a credit score</p><span class="src">Conceptual framework</span></div><div class="stat"><span class="figure">0 hidden fees</span><p class="claim">the responsible-use guardrails written into the design</p><span class="src">Design principle</span></div></div>
+        <div class="btn-row"><a class="btn btn-ghost btn-sm" href="solution.html">See how Bridge works</a></div>
+      </article>
+      <article class="jm-slide" id="jm-3">
+        <p class="kicker">45 to 60 seconds &middot; The recovery</p>
+        <h2>Twelve weeks with a plan, instead of a year without one.</h2>
+        <p class="lede">Day 0 the expense lands. Day 1 the situation is assessed and a plan exists. Week 1 the emergency is handled. From week 4 savings rebuilding starts alongside repayment, so recovery and preparedness happen together.</p>
+        <div class="jm-figs"><div class="stat"><span class="figure">$62.50</span><p class="claim">illustrative weekly repayment across twelve weeks</p><span class="src">Illustrative</span></div><div class="stat"><span class="figure">$10</span><p class="claim">illustrative weekly savings contribution running alongside it</p><span class="src">Illustrative</span></div><div class="stat"><span class="figure">12 weeks</span><p class="claim">illustrative recovery period</p><span class="src">Illustrative</span></div></div>
+        <div class="btn-row"><a class="btn btn-ghost btn-sm" href="recovery.html">Follow the recovery journey</a></div>
+      </article>
+      <article class="jm-slide" id="jm-4">
+        <p class="kicker">60 to 75 seconds &middot; The business</p>
+        <h2>Organisations fund resilience. Bridge runs it.</h2>
+        <p class="lede">Bridge is business to business to consumer. Employers, universities, nonprofits and financial institutions establish a Resilience Fund and pay for the platform that runs it. Revenue comes from institutional contracts, not from interest charged to people in difficulty.</p>
+        <div class="jm-figs"><div class="stat"><span class="figure">3 pools</span><p class="claim">user money, program capital and Bridge revenue are kept separate</p><span class="src">Design principle</span></div><div class="stat"><span class="figure">5 streams</span><p class="claim">subscription, administration, enterprise, partnerships, transparent service fees</p><span class="src">Revenue model</span></div><div class="stat"><span class="figure">$250k</span><p class="claim">illustrative pilot funding pool against $210k of illustrative support demand</p><span class="src">Illustrative pilot</span></div></div>
+        <div class="btn-row"><a class="btn btn-ghost btn-sm" href="business.html">Read the business model</a></div>
+      </article>
+      <article class="jm-slide" id="jm-5">
+        <p class="kicker">75 to 90 seconds &middot; The impact</p>
+        <h2>Success is not money distributed. It is people who recovered.</h2>
+        <p class="lede">Bridge measures emergency resolution, recovery completion, savings rebuilt, repeat dependence, avoided high-cost credit, and change in the Resilience Profile. A pilot with one employer, one university and one nonprofit could test all six inside twelve months.</p>
+        <div class="jm-figs"><div class="stat"><span class="figure">85%</span><p class="claim">recovery completion, an illustrative pilot target rather than a result</p><span class="src">Illustrative pilot target</span></div><div class="stat"><span class="figure">72%</span><p class="claim">savings rebuilding, an illustrative pilot target</p><span class="src">Illustrative pilot target</span></div><div class="stat"><span class="figure">15%</span><p class="claim">repeat emergency support, an illustrative pilot target to keep low</p><span class="src">Illustrative pilot target</span></div></div>
+        <div class="btn-row"><a class="btn btn-ghost btn-sm" href="impact.html">See the impact framework</a></div>
+      </article>
+    </div>
+    <div class="jm-dots"><button type="button" aria-current="true" aria-label="Chapter 1 of 6"></button><button type="button" aria-current="false" aria-label="Chapter 2 of 6"></button><button type="button" aria-current="false" aria-label="Chapter 3 of 6"></button><button type="button" aria-current="false" aria-label="Chapter 4 of 6"></button><button type="button" aria-current="false" aria-label="Chapter 5 of 6"></button><button type="button" aria-current="false" aria-label="Chapter 6 of 6"></button></div>
+  </div>
+  <script src="assets/js/bridge.js" defer></script>
+
+</body>
+</html>
