@@ -5,4 +5,3 @@
 3. Reverie Hacks - Swing Scope
 4. Hack The Limit - Accessibility Copilot
 5. Graphiques Innovation - Bridge Finance
-6. Hyperbloom September Hack - 
