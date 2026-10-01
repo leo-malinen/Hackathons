@@ -3,5 +3,5 @@
 1. RLC Hacks - Local Radar [WINNER BEST IDEA]
 2. Build with Data Hub - Blast-Radius
 3. Reverie Hacks - Swing Scope
-4. Hack The Limit - Accessibility Copilot
+4. 
 5. Graphiques Innovation - Bridge Finance
